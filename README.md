@@ -4,7 +4,7 @@ Dados públicos do Brasil, servidos em fatias.
 
 **Veja o site: https://lcsmll.github.io/terminou-em-pizza/**
 
-"Terminar em pizza" é quando um assunto sério acaba sem consequência. Este projeto inverte a piada: a pizza vira uma forma séria de mostrar dados reais. Cada pizza é um tema, cada fatia é uma parte do todo, e o pizzaiolo resume o que os números dizem.
+"Terminar em pizza" é quando um assunto sério acaba sem consequência. Este projeto inverte a piada: a pizza vira uma forma séria de mostrar dados reais. Cada pizza é um tema, cada fatia é uma parte do todo, e o pizzaiolo narra o que os números dizem.
 
 ## Cardápio da v1
 
@@ -57,6 +57,7 @@ site/             página estática
   ingredientes.js receita e cor de cada ingrediente (sem Three.js)
   textos.js       explicações de cada pizza e de cada fatia
   graficos.js     gráficos de evolução no tempo (linha e barras), em SVG
+  texturas/       poses do pizzaiolo (WebP e PNG)
 tests/            testes dos coletores
 ```
 
@@ -66,17 +67,32 @@ tests/            testes dos coletores
 - [x] Etapa 1: coletor do IPCA com testes, validado com dados reais (outubro de 2026: 9 grupos, soma dos pesos 100,00%)
 - [x] Etapa 2: primeira pizza na tela (2D, SVG): as três pizzas, legenda, fonte e data
 - [x] Etapa 3: pizza 3D realista (Three.js) e visual do site. O SVG continua como reserva sem WebGL
-- [x] Etapa 4: detalhe da fatia, explicação de cada pizza, seção "Por que pizza?" e nota do pizzaiolo
+- [x] Etapa 4: detalhe da fatia, explicação de cada pizza, seção "Por que pizza?" e frase do pizzaiolo
 - [x] Etapa 5: coletores da Matriz elétrica e das CPIs, com testes e dados reais
 - [x] Etapa 6: publicado no GitHub Pages, com coleta automática toda segunda-feira (GitHub Actions)
 
 ## A pizza 3D
 
 - Three.js 0.160.0 via CDN (jsDelivr), com versão fixa no import map do `index.html`. Sem build.
-- Nenhuma imagem: as texturas de massa, molho, queijo, madeira e embutidos são desenhadas em canvas, e a borda e o queijo recebem ruído determinístico para parecerem feitos à mão.
+- A pizza não usa imagem: as texturas de massa, molho, queijo, madeira e embutidos são desenhadas em canvas, e a borda e o queijo recebem ruído determinístico para parecerem feitos à mão.
 - O ângulo de cada fatia é proporcional ao valor. O ingrediente identifica a fatia, e a mesma cor aparece na legenda.
 - Para girar, arraste. Ao passar o mouse, aparece o nome e o valor da fatia. Clicar tira a fatia da pizza e abre o detalhe. A roda do mouse continua rolando a página.
 - Sem WebGL, ou se o CDN falhar, o site mostra a pizza em SVG com a mesma legenda e o mesmo detalhe.
+
+## O pizzaiolo
+
+O pizzaiolo é o narrador dos dados. Ele não dá nota nem opinião: resume em uma frase o que os números da pizza dizem, e a frase é montada pelo coletor a partir do próprio JSON (`pizzaiolo.frase`). Na Calabresa da CPI, a frase deixa claro que o total inclui as CPIs criadas e não instaladas.
+
+Ele aparece em quatro poses, sempre no mesmo lugar e sem mudar conforme o valor dos dados:
+
+| Pose | Onde |
+| --- | --- |
+| Boas-vindas | no topo, ao lado do título |
+| Apresentando | no card "O pizzaiolo diz", ao lado da frase |
+| Pensativo | no bloco "Como ler esta pizza" |
+| Aprovando | no rodapé da pizza, ao lado da fonte e da data |
+
+As imagens ficam em `site/texturas/`, em WebP com PNG de reserva. No celular, cada pose fica menor e acima do seu texto.
 
 ## Ao longo dos anos
 
