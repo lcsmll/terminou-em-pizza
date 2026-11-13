@@ -63,6 +63,11 @@ class TestMatrizEletrica(unittest.TestCase):
         valores = [f["valor"] for f in self.dados["fatias"]]
         self.assertEqual(valores, sorted(valores, reverse=True))
 
+    def test_nota_pela_parte_renovavel(self):
+        pizzaiolo = self.dados["pizzaiolo"]
+        self.assertEqual(pizzaiolo["nota"], 9.0)
+        self.assertIn("90,0%", pizzaiolo["regra"])
+
     def test_frase_em_formato_brasileiro(self):
         frase = self.dados["pizzaiolo"]["frase"]
         self.assertIn("fevereiro de 2099", frase)

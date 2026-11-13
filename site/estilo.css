@@ -214,6 +214,49 @@ main { padding-top: 36px; }
   line-height: 1.4;
 }
 
+.pizzaiolo .nota {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--linha);
+}
+.placar {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+}
+.placar .rotulo-nota {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--suave);
+  font-weight: 600;
+}
+.placar strong {
+  font-family: var(--titulo);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--queijo);
+}
+.placar .escala { color: var(--suave); font-size: 0.9rem; }
+.medidor {
+  height: 6px;
+  margin: 10px 0 4px;
+  border-radius: 6px;
+  background: var(--linha);
+  overflow: hidden;
+}
+.medidor span {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--queijo);
+}
+.regra { margin-top: 8px; font-size: 0.88rem; color: var(--suave); }
+.regra summary { cursor: pointer; color: var(--texto); width: fit-content; }
+.regra p { margin: 8px 0 0; line-height: 1.5; }
+.regra a { color: var(--queijo); }
+
 /* legenda */
 .fatias { list-style: none; margin: 0; padding: 0; }
 .fatias button {

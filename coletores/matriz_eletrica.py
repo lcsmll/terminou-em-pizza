@@ -20,7 +20,7 @@ from collections import defaultdict
 from datetime import date
 from typing import Iterable
 
-from coletores.comum import PASTA_GERADOS, ErroColeta, baixar_linhas, formatar_numero, log, para_numero, salvar_json
+from coletores.comum import PASTA_GERADOS, ErroColeta, baixar_linhas, formatar_numero, log, nota_de, para_numero, salvar_json
 
 URL_DATASET = "https://dados.ons.org.br/dataset/geracao-usina-2"
 URL_ARQUIVO = (
@@ -183,7 +183,15 @@ def transformar(agregado: dict, ano: int, mes: int) -> dict:
             "renovaveis_pct": round(renovaveis, 2),
         },
         "fatias": fatias,
-        "pizzaiolo": {"frase": frase, "nota": None, "regra": None},
+        "pizzaiolo": {
+            "frase": frase,
+            "nota": nota_de(renovaveis / 10),
+            "regra": (
+                "A nota é a parte da eletricidade que veio de água, sol e vento, numa escala de 0 a 10: "
+                "10 se toda a geração fosse dessas fontes, 0 se nenhuma fosse. Nuclear e biomassa não entram na conta. "
+                f"Em {mes_nome}, foram {formatar_numero(renovaveis)}%."
+            ),
+        },
     }
 
 

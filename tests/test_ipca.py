@@ -47,6 +47,24 @@ class TestIpca(unittest.TestCase):
         self.assertIn("Alimentação e bebidas", frase)
         self.assertIn("0,50%", frase)
 
+    def test_nota_pela_distancia_da_meta(self):
+        com_doze_meses = copy.deepcopy(self.resposta)
+        linha = next(l for l in com_doze_meses[1:] if l["D4C"] == COD_GERAL)
+        com_doze_meses.append({**linha, "D2C": "2265", "V": "4.5"})
+        pizzaiolo = transformar(com_doze_meses)["pizzaiolo"]
+        # 1,5 ponto acima da meta de 3%: limite da tolerância, nota 5
+        self.assertEqual(pizzaiolo["nota"], 5.0)
+        self.assertIn("4,50%", pizzaiolo["regra"])
+        self.assertIn("1,50 ponto acima", pizzaiolo["regra"])
+        self.assertTrue(pizzaiolo["regra_fonte"]["url"].startswith("https://"))
+        com_doze_meses[-1]["V"] = "-1"
+        self.assertEqual(transformar(com_doze_meses)["pizzaiolo"]["nota"], 0.0)
+
+    def test_sem_doze_meses_sem_nota(self):
+        pizzaiolo = transformar(self.resposta)["pizzaiolo"]
+        self.assertIsNone(pizzaiolo["nota"])
+        self.assertIsNone(pizzaiolo["regra"])
+
     def test_falha_se_soma_nao_fecha(self):
         ruim = copy.deepcopy(self.resposta)
         for linha in ruim[1:]:
@@ -63,7 +81,7 @@ class TestIpca(unittest.TestCase):
     def test_url(self):
         url = montar_url()
         self.assertIn("/t/7060/", url)
-        self.assertIn("/v/63,66/", url)
+        self.assertIn("/v/63,66,2265/", url)
         self.assertIn("p/last%201", url)
 
 

@@ -82,6 +82,12 @@ class TestCpis(unittest.TestCase):
         valores = [f["valor"] for f in self.dados["fatias"]]
         self.assertEqual(valores, sorted(valores, reverse=True))
 
+    def test_nota_sem_as_em_andamento(self):
+        # 1 aprovada entre 5 encerradas (a CPIE ainda está em andamento)
+        pizzaiolo = self.dados["pizzaiolo"]
+        self.assertEqual(pizzaiolo["nota"], 2.0)
+        self.assertIn("1 de 5", pizzaiolo["regra"])
+
     def test_correcao_manual(self):
         manual = {"3": {"desfecho": "relatorio_aprovado", "fonte": "https://exemplo.gov.br/x"}}
         dados = transformar(CPIS, RELATORIOS, manual, HOJE)

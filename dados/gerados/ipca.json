@@ -10,7 +10,8 @@
     "url": "https://sidra.ibge.gov.br/tabela/7060"
   },
   "resumo": {
-    "ipca_variacao_mes_pct": 0.14
+    "ipca_variacao_mes_pct": 0.14,
+    "ipca_12_meses_pct": 4.63
   },
   "fatias": [
     {
@@ -124,8 +125,12 @@
   ],
   "pizzaiolo": {
     "frase": "A fatia mais pesada é Alimentação e bebidas: 21,5% do orçamento. Em outubro de 2026, o IPCA variou 0,14%.",
-    "nota": null,
-    "regra": null
+    "nota": 4.6,
+    "regra": "A nota mede a distância entre a inflação de 12 meses e a meta de 3,0% do Conselho Monetário Nacional: 10 na meta, 5 no limite da tolerância (1,5 ponto), 0 a partir de 3,0 pontos. Nos 12 meses até outubro de 2026, o IPCA acumulou 4,63%, 1,63 ponto acima da meta.",
+    "regra_fonte": {
+      "nome": "Banco Central do Brasil, Metas para a inflação",
+      "url": "https://www.bcb.gov.br/controleinflacao/metainflacao"
+    }
   },
   "historico": [
     {

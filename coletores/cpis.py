@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
-from coletores.comum import RAIZ, ErroColeta, baixar_json, log, salvar_json
+from coletores.comum import RAIZ, ErroColeta, baixar_json, log, nota_de, salvar_json
 
 API = "https://dadosabertos.camara.leg.br/api/v2"
 COD_TIPO_CPI = 4
@@ -240,8 +240,26 @@ def transformar(todas: list[dict], relatorios: list[dict], manual: dict[str, dic
             "corrigidas_manualmente": sum(1 for c in classificadas if c["origem"] == "manual"),
         },
         "fatias": fatias,
-        "pizzaiolo": {"frase": frase, "nota": None, "regra": None},
+        "pizzaiolo": {"frase": frase, **nota_do_pizzaiolo(fatias, ano_inicio)},
         "historico": [historico(todas, classificadas, hoje)],
+    }
+
+
+def nota_do_pizzaiolo(fatias: list[dict], ano_inicio: str) -> dict:
+    """Nota pela parte das CPIs encerradas com relatório final aprovado. As em andamento ficam de fora."""
+    contagem = {f["codigo"]: f["valor"] for f in fatias}
+    encerradas = sum(contagem.values()) - contagem.get("em_andamento", 0)
+    if not encerradas:
+        return {"nota": None, "regra": None}
+    aprovadas = contagem.get("relatorio_aprovado", 0)
+    return {
+        "nota": nota_de(aprovadas / encerradas * 10),
+        "regra": (
+            "A nota é a parte das CPIs encerradas que terminaram com relatório final aprovado, numa escala de 0 a 10: "
+            "10 se todas aprovaram, 0 se nenhuma aprovou. As CPIs em andamento ficam de fora, e as que não têm "
+            "aprovação registrada na API contam como não aprovadas. "
+            f"Desde {ano_inicio}, foram {aprovadas} de {encerradas}."
+        ),
     }
 
 

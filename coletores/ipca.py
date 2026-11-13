@@ -4,6 +4,7 @@ Fonte: IBGE SIDRA, tabela 7060 (desde 2020) e tabela 1419 (2012 a 2019, para o h
   - variável 63: IPCA, variação mensal (%)
   - variável 66: IPCA, peso mensal (%)
   - variável 69: IPCA, variação acumulada no ano (%)
+  - variável 2265: IPCA, variação acumulada em 12 meses (%), usada na nota do pizzaiolo
   - classificação 315: geral, grupo, subgrupo, item e subitem
 
 Uso: python -m coletores.ipca
@@ -14,13 +15,14 @@ from __future__ import annotations
 import re
 import sys
 
-from coletores.comum import ErroColeta, baixar_json, formatar_numero, log, para_numero, salvar_json
+from coletores.comum import ErroColeta, baixar_json, formatar_numero, log, nota_de, para_numero, salvar_json
 
 TABELA = 7060
 TABELA_ANTERIOR = 1419  # mesma estrutura de grupos, de 2012 a 2019
 VAR_VARIACAO = "63"
 VAR_PESO = "66"
 VAR_ACUMULADO_ANO = "69"
+VAR_DOZE_MESES = "2265"
 COD_GERAL = "7169"
 # Códigos dos 9 grupos na classificação 315 da tabela 7060
 COD_GRUPOS = ["7170", "7445", "7486", "7558", "7625", "7660", "7712", "7766", "7786"]
@@ -39,13 +41,19 @@ INGREDIENTES = {
 
 TOLERANCIA_SOMA = 0.5  # pontos percentuais
 
+# Meta de inflação definida pelo Conselho Monetário Nacional (meta contínua desde 2025)
+META_INFLACAO = 3.0
+TOLERANCIA_META = 1.5  # pontos percentuais, para cima ou para baixo
+FONTE_META = {"nome": "Banco Central do Brasil, Metas para a inflação",
+              "url": "https://www.bcb.gov.br/controleinflacao/metainflacao"}
+
 
 def montar_url(periodo: str = "last 1") -> str:
     codigos = ",".join([COD_GERAL, *COD_GRUPOS])
     periodo_url = periodo.replace(" ", "%20")
     return (
         f"https://apisidra.ibge.gov.br/values/t/{TABELA}/n1/all"
-        f"/v/{VAR_VARIACAO},{VAR_PESO}/p/{periodo_url}/c315/{codigos}"
+        f"/v/{VAR_VARIACAO},{VAR_PESO},{VAR_DOZE_MESES}/p/{periodo_url}/c315/{codigos}"
     )
 
 
@@ -154,10 +162,33 @@ def transformar(resposta: list[dict]) -> dict:
             "nome": f"IBGE SIDRA, tabela {TABELA}",
             "url": f"https://sidra.ibge.gov.br/tabela/{TABELA}",
         },
-        "resumo": {"ipca_variacao_mes_pct": ipca_mes},
+        "resumo": {"ipca_variacao_mes_pct": ipca_mes, "ipca_12_meses_pct": geral.get(VAR_DOZE_MESES)},
         "fatias": fatias,
-        # A nota e a regra entram na Etapa 4
-        "pizzaiolo": {"frase": frase, "nota": None, "regra": None},
+        "pizzaiolo": {"frase": frase, **nota_do_pizzaiolo(geral.get(VAR_DOZE_MESES), mes_nome)},
+    }
+
+
+def nota_do_pizzaiolo(doze_meses: float | None, mes_nome: str) -> dict:
+    """Nota pela distância entre o IPCA de 12 meses e a meta: 10 na meta, 5 no limite da tolerância."""
+    if doze_meses is None:
+        return {"nota": None, "regra": None}
+    distancia = abs(doze_meses - META_INFLACAO)
+    lado = "acima" if doze_meses > META_INFLACAO else "abaixo"
+    regra = (
+        f"A nota mede a distância entre a inflação de 12 meses e a meta de {formatar_numero(META_INFLACAO)}% "
+        f"do Conselho Monetário Nacional: 10 na meta, 5 no limite da tolerância "
+        f"({formatar_numero(TOLERANCIA_META)} ponto), 0 a partir de {formatar_numero(2 * TOLERANCIA_META)} pontos. "
+        f"Nos 12 meses até {mes_nome}, o IPCA acumulou {formatar_numero(doze_meses, 2)}%"
+    )
+    if distancia < 0.005:
+        regra += ", em cima da meta."
+    else:
+        pontos = "pontos" if distancia >= 2 else "ponto"
+        regra += f", {formatar_numero(distancia, 2)} {pontos} {lado} da meta."
+    return {
+        "nota": nota_de(10 - 5 * distancia / TOLERANCIA_META),
+        "regra": regra,
+        "regra_fonte": FONTE_META,
     }
 
 

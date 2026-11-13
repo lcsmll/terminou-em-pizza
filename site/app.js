@@ -200,6 +200,21 @@ const DETALHES = {
 
 // ---------- página ----------
 
+function mostrarNota(caixa, pizzaiolo) {
+  if (pizzaiolo.nota == null || !pizzaiolo.regra) return;
+  caixa.hidden = false;
+  caixa.querySelector(".placar strong").textContent = numero(pizzaiolo.nota, 1);
+  caixa.querySelector(".placar").setAttribute("aria-label", `Nota ${numero(pizzaiolo.nota, 1)} de 10`);
+  caixa.querySelector(".medidor span").style.width = `${pizzaiolo.nota * 10}%`;
+  caixa.querySelector(".regra p").textContent = pizzaiolo.regra;
+  if (pizzaiolo.regra_fonte) {
+    const fonte = caixa.querySelector(".regra-fonte");
+    fonte.hidden = false;
+    fonte.querySelector("a").href = pizzaiolo.regra_fonte.url;
+    fonte.querySelector("a").textContent = pizzaiolo.regra_fonte.nome;
+  }
+}
+
 function montarPizza(dados, comPalco) {
   const artigo = document.getElementById("modelo-pizza").content.firstElementChild.cloneNode(true);
   artigo.querySelector(".tema").textContent = dados.tema;
@@ -207,6 +222,7 @@ function montarPizza(dados, comPalco) {
   artigo.querySelector(".periodo").textContent = dados.periodo_nome || dados.periodo;
   artigo.querySelector(".total").textContent = rotuloTotal(dados);
   artigo.querySelector(".pizzaiolo blockquote").textContent = dados.pizzaiolo.frase;
+  mostrarNota(artigo.querySelector(".pizzaiolo .nota"), dados.pizzaiolo);
 
   const explicacao = EXPLICACOES[dados.tema];
   if (explicacao) {
