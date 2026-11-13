@@ -70,4 +70,4 @@ As séries são indexadas pelo nome da fatia: ao escolher uma fatia, o site dest
 3. Pizza 3D (Three.js) (feito: pizza realista, texturas em canvas, visual de pizzaria)
 4. Detalhe da fatia e pizzaiolo (detalhe feito; falta a nota)
 5. Matriz elétrica e CPIs (coletores feitos e validados com dados reais)
-6. Automação (GitHub Actions) e publicação (GitHub Pages)
+6. Automação (GitHub Actions) e publicação (GitHub Pages) (feito: https://lcsmll.github.io/terminou-em-pizza/, coleta toda segunda)

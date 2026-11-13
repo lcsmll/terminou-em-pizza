@@ -2,6 +2,8 @@
 
 Dados públicos do Brasil, servidos em fatias.
 
+**Veja o site: https://lcsmll.github.io/terminou-em-pizza/**
+
 "Terminar em pizza" é quando um assunto sério acaba sem consequência. Este projeto inverte a piada: a pizza vira uma forma séria de mostrar dados reais. Cada pizza é um tema, cada fatia é uma parte do todo, e o pizzaiolo resume o que os números dizem.
 
 ## Cardápio da v1
@@ -20,6 +22,13 @@ Fontes públicas -> coletores Python -> dados/gerados/*.json -> site estático (
 ```
 
 O site só lê os JSONs do repositório. Não há servidor, banco de dados nem chave de API no navegador.
+
+## Publicação e atualização
+
+- O GitHub Pages publica a branch `main`. O `index.html` da raiz leva para `site/`.
+- O workflow `.github/workflows/coletar.yml` roda toda segunda-feira às 6h (horário de Brasília). Ele roda os testes e os três coletores, e faz commit dos JSONs que mudaram. Esse commit atualiza o site.
+- Um coletor que falha não grava nada, e o site continua com o último JSON válido. O run fica vermelho para avisar.
+- Para rodar na hora: aba Actions, "Coletar dados", "Run workflow", ou `gh workflow run coletar.yml`.
 
 ## Rodar localmente
 
@@ -59,7 +68,7 @@ tests/            testes dos coletores
 - [x] Etapa 3: pizza 3D realista (Three.js) e visual do site. O SVG continua como reserva sem WebGL
 - [ ] Etapa 4: detalhe da fatia e nota do pizzaiolo (detalhe da fatia, explicação de cada pizza e seção "Por que pizza?" prontos; falta a nota)
 - [x] Etapa 5: coletores da Matriz elétrica e das CPIs, com testes e dados reais
-- [ ] Etapa 6: GitHub Actions e GitHub Pages
+- [x] Etapa 6: publicado no GitHub Pages, com coleta automática toda segunda-feira (GitHub Actions)
 
 ## A pizza 3D
 
