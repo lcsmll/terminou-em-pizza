@@ -1,0 +1,131 @@
+{
+  "tema": "IPCA",
+  "sabor": "Pizza Inflação",
+  "periodo": "2026-10",
+  "periodo_nome": "outubro 2026",
+  "total": 100.0002,
+  "unidade": "%",
+  "fonte": {
+    "nome": "IBGE SIDRA, tabela 7060",
+    "url": "https://sidra.ibge.gov.br/tabela/7060"
+  },
+  "resumo": {
+    "ipca_variacao_mes_pct": 0.14
+  },
+  "fatias": [
+    {
+      "ordem": 1,
+      "codigo": "7170",
+      "nome": "Alimentação e bebidas",
+      "ingrediente": "Tomate e manjericão",
+      "valor": 21.511,
+      "detalhe": {
+        "peso_pct": 21.511,
+        "variacao_mes_pct": 1.04,
+        "contribuicao_pp": 0.2237
+      }
+    },
+    {
+      "ordem": 2,
+      "codigo": "7625",
+      "nome": "Transportes",
+      "ingrediente": "Azeitona preta",
+      "valor": 20.1739,
+      "detalhe": {
+        "peso_pct": 20.1739,
+        "variacao_mes_pct": -0.59,
+        "contribuicao_pp": -0.119
+      }
+    },
+    {
+      "ordem": 3,
+      "codigo": "7445",
+      "nome": "Habitação",
+      "ingrediente": "Cogumelos",
+      "valor": 15.4865,
+      "detalhe": {
+        "peso_pct": 15.4865,
+        "variacao_mes_pct": -0.51,
+        "contribuicao_pp": -0.079
+      }
+    },
+    {
+      "ordem": 4,
+      "codigo": "7660",
+      "nome": "Saúde e cuidados pessoais",
+      "ingrediente": "Rúcula",
+      "valor": 13.7391,
+      "detalhe": {
+        "peso_pct": 13.7391,
+        "variacao_mes_pct": 0.09,
+        "contribuicao_pp": 0.0124
+      }
+    },
+    {
+      "ordem": 5,
+      "codigo": "7712",
+      "nome": "Despesas pessoais",
+      "ingrediente": "Salame",
+      "valor": 10.3488,
+      "detalhe": {
+        "peso_pct": 10.3488,
+        "variacao_mes_pct": 0.36,
+        "contribuicao_pp": 0.0373
+      }
+    },
+    {
+      "ordem": 6,
+      "codigo": "7766",
+      "nome": "Educação",
+      "ingrediente": "Alcachofra",
+      "valor": 6.1605,
+      "detalhe": {
+        "peso_pct": 6.1605,
+        "variacao_mes_pct": 0.07,
+        "contribuicao_pp": 0.0043
+      }
+    },
+    {
+      "ordem": 7,
+      "codigo": "7558",
+      "nome": "Vestuário",
+      "ingrediente": "Pimentões",
+      "valor": 4.6124,
+      "detalhe": {
+        "peso_pct": 4.6124,
+        "variacao_mes_pct": 0.38,
+        "contribuicao_pp": 0.0175
+      }
+    },
+    {
+      "ordem": 8,
+      "codigo": "7786",
+      "nome": "Comunicação",
+      "ingrediente": "Cebola roxa",
+      "valor": 4.5028,
+      "detalhe": {
+        "peso_pct": 4.5028,
+        "variacao_mes_pct": 0.71,
+        "contribuicao_pp": 0.032
+      }
+    },
+    {
+      "ordem": 9,
+      "codigo": "7486",
+      "nome": "Artigos de residência",
+      "ingrediente": "Alcaparras",
+      "valor": 3.4652,
+      "detalhe": {
+        "peso_pct": 3.4652,
+        "variacao_mes_pct": 0.44,
+        "contribuicao_pp": 0.0152
+      }
+    }
+  ],
+  "pizzaiolo": {
+    "frase": "A fatia mais pesada é Alimentação e bebidas: 21.5% do orçamento. Em outubro 2026, o IPCA variou 0.14%.",
+    "nota": null,
+    "regra": null
+  },
+  "atualizado_em": "2026-11-13"
+}

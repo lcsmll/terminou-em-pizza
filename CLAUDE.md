@@ -47,7 +47,7 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 ## Roteiro
 
 0. Estrutura do projeto (feito)
-1. Coletor do IPCA (feito, validar com dados reais)
+1. Coletor do IPCA (feito e validado com dados reais)
 2. Primeira pizza na tela (2D, SVG)
 3. Pizza 3D (Three.js)
 4. Detalhe da fatia e pizzaiolo

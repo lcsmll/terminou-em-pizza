@@ -8,7 +8,7 @@ Dados públicos do Brasil, servidos em fatias.
 
 | Sabor | Tema | Fonte | Status |
 | --- | --- | --- | --- |
-| Pizza Inflação | Pesos dos grupos do IPCA | IBGE SIDRA | Coletor pronto |
+| Pizza Inflação | Pesos dos grupos do IPCA | IBGE SIDRA | Coletor validado com dados reais |
 | Quattro Energie | Matriz elétrica por fonte | ONS Dados Abertos | A fazer |
 | Calabresa da CPI | Desfechos das CPIs | Câmara dos Deputados + curadoria manual | A fazer |
 
@@ -45,7 +45,7 @@ tests/            testes dos coletores
 ## Status do roteiro
 
 - [x] Etapa 0: estrutura, README, CLAUDE.md
-- [x] Etapa 1: coletor do IPCA com testes (lógica testada com resposta fictícia; falta a primeira rodada com dados reais)
+- [x] Etapa 1: coletor do IPCA com testes, validado com dados reais (outubro de 2026: 9 grupos, soma dos pesos 100,00%)
 - [ ] Etapa 2: primeira pizza na tela (2D)
 - [ ] Etapa 3: pizza 3D
 - [ ] Etapa 4: detalhe da fatia e nota do pizzaiolo
