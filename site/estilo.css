@@ -52,9 +52,9 @@ a:hover { color: #fff3cf; }
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px 48px;
-  padding-top: 40px;
-  padding-bottom: 28px;
+  gap: 12px 48px;
+  padding-top: 20px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--linha);
 }
 
@@ -77,10 +77,10 @@ a:hover { color: #fff3cf; }
 }
 .topo h1 em { font-weight: 400; color: var(--queijo); }
 
-.lema { margin: 12px 0 0; max-width: 42ch; color: var(--suave); }
+.lema { margin: 8px 0 0; max-width: 42ch; color: var(--suave); }
 .link-sobre {
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 4px;
   font-size: 0.9rem;
   color: var(--queijo);
 }
@@ -117,7 +117,7 @@ a:hover { color: #fff3cf; }
 
 /* ---------- pizza ---------- */
 
-main { padding-top: 36px; }
+main { padding-top: 18px; }
 
 .cabeca .tema {
   margin: 0;
@@ -136,14 +136,14 @@ main { padding-top: 36px; }
   line-height: 1.05;
 }
 .cabeca .periodo { margin: 0; color: var(--suave); }
-.cabeca .resumo-tema { margin: 10px 0 0; max-width: 60ch; font-size: 1.05rem; }
+.cabeca .resumo-tema { margin: 6px 0 0; max-width: 60ch; font-size: 1.05rem; }
 
 .mesa {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   gap: 32px 48px;
   align-items: start;
-  margin: 12px 0 28px;
+  margin: 4px 0 28px;
 }
 
 .forma { margin: 0; }
@@ -502,6 +502,21 @@ main { padding-top: 36px; }
 .cardapio-leitura dd { margin: 0; }
 
 /* ---------- telas estreitas ---------- */
+
+/* Duas colunas: a pizza e o card do pizzaiolo cabem na primeira tela.
+   O canvas tem uma faixa vazia acima da pizza, que fica por baixo da introdução.
+   Em telas baixas, a altura do palco acompanha a altura da janela. */
+@media (min-width: 861px) {
+  .cabeca { position: relative; z-index: 1; pointer-events: none; }
+  .cabeca > * { pointer-events: auto; }
+  .forma { container-type: inline-size; }
+  .palco {
+    --altura: min(92cqw, max(320px, 125svh - 560px));
+    height: var(--altura);
+    aspect-ratio: auto;
+    margin-top: calc(var(--altura) * -0.12);
+  }
+}
 
 @media (max-width: 860px) {
   .mesa, .sobre { grid-template-columns: 1fr; }
