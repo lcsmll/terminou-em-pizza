@@ -1,0 +1,68 @@
+# Atualiza os dados toda semana e publica junto com o site (GitHub Pages lê a branch main).
+# Um coletor que falha não grava nada: o site continua com o último JSON válido.
+
+name: Coletar dados
+
+on:
+  schedule:
+    - cron: "0 9 * * 1"   # segunda-feira, 6h em Brasília
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coletar-dados
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Testes
+        run: python -m unittest discover -s tests
+
+      - name: IPCA
+        id: ipca
+        continue-on-error: true
+        run: python -m coletores.ipca
+
+      - name: Matriz elétrica
+        id: matriz
+        continue-on-error: true
+        run: python -m coletores.matriz_eletrica
+
+      - name: CPIs
+        id: cpis
+        continue-on-error: true
+        run: python -m coletores.cpis
+
+      - name: Gravar dados novos
+        run: |
+          git add dados/gerados
+          if git diff --cached --quiet; then
+            echo "Nenhum dado mudou."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Dados atualizados em $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      # Deixa o run vermelho se algum coletor falhou, depois de gravar os que deram certo
+      - name: Conferir coletores
+        if: steps.ipca.outcome == 'failure' || steps.matriz.outcome == 'failure' || steps.cpis.outcome == 'failure'
+        run: |
+          echo "IPCA: ${{ steps.ipca.outcome }} | Matriz: ${{ steps.matriz.outcome }} | CPIs: ${{ steps.cpis.outcome }}"
+          exit 1
