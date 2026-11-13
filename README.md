@@ -47,6 +47,7 @@ site/             página estática
   pizza3d.js      pizza 3D: massa, molho, queijo e ingredientes gerados por código
   ingredientes.js receita e cor de cada ingrediente (sem Three.js)
   textos.js       explicações de cada pizza e de cada fatia
+  graficos.js     gráficos de evolução no tempo (linha e barras), em SVG
 tests/            testes dos coletores
 ```
 
@@ -67,6 +68,18 @@ tests/            testes dos coletores
 - O ângulo de cada fatia é proporcional ao valor. O ingrediente identifica a fatia, e a mesma cor aparece na legenda.
 - Para girar, arraste. Ao passar o mouse, aparece o nome e o valor da fatia. Clicar tira a fatia da pizza e abre o detalhe. A roda do mouse continua rolando a página.
 - Sem WebGL, ou se o CDN falhar, o site mostra a pizza em SVG com a mesma legenda e o mesmo detalhe.
+
+## Ao longo dos anos
+
+Cada pizza é um retrato. A evolução no tempo vai em gráficos de linha ou de barras, logo abaixo da pizza, e a série em destaque acompanha a fatia escolhida.
+
+| Pizza | Gráfico | Período | Fonte |
+| --- | --- | --- | --- |
+| Pizza Inflação | Inflação de cada ano e peso no orçamento, por grupo | 2012 até hoje | IBGE SIDRA, tabelas 1419 e 7060 |
+| Quattro Energie | Participação de cada fonte na geração | 2000 até hoje | ONS, Balanço de energia nos subsistemas |
+| Calabresa da CPI | CPIs criadas por ano, por desfecho a partir de 2015 | 1999 até hoje | API da Câmara |
+
+No histórico do ONS, as térmicas (gás, carvão, nuclear, óleo e biomassa) vêm somadas. Os anos fechados ficam guardados no próprio JSON (`cache_balanco`), e o coletor só baixa de novo o ano corrente e o anterior. A API da Câmara repete algumas CPIs antigas com outro número; o coletor conta cada uma só uma vez.
 
 ## Fontes
 

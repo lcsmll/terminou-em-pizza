@@ -53,8 +53,17 @@ def _em_paralelo(funcao, itens: list) -> list:
         return list(executor.map(funcao, itens))
 
 
+def sem_repeticao(detalhes: list[dict]) -> list[dict]:
+    """A API registra a mesma CPI com ids diferentes (um por legislatura).
+    Fica um registro por sigla e data de criação, o de menor id."""
+    unicas: dict[tuple, dict] = {}
+    for d in sorted(detalhes, key=lambda d: d["id"]):
+        unicas.setdefault((d["sigla"], (d.get("dataInicio") or "")[:10]), d)
+    return list(unicas.values())
+
+
 def buscar_cpis(hoje: date) -> list[dict]:
-    """Detalhe de cada CPI criada desde INICIO."""
+    """Detalhe de cada CPI registrada na API, sem repetições."""
     lista = _paginar(
         f"{API}/orgaos?codTipoOrgao={COD_TIPO_CPI}&dataInicio=1900-01-01"
         f"&dataFim={hoje.isoformat()}&itens=100"
@@ -64,7 +73,7 @@ def buscar_cpis(hoje: date) -> list[dict]:
     unicas = {o["id"]: o for o in lista}  # a paginação da API repete itens
     log.info("%d CPIs na API, buscando detalhes", len(unicas))
     detalhes = _em_paralelo(lambda o: baixar_json(o["uri"], silencioso=True)["dados"], list(unicas.values()))
-    return [d for d in detalhes if (d.get("dataInicio") or "") >= INICIO]
+    return sem_repeticao([d for d in detalhes if d.get("dataInicio")])
 
 
 def buscar_relatorios(hoje: date) -> list[dict]:
@@ -140,8 +149,41 @@ def classificar(cpi: dict, relatorios: list[dict], hoje: date) -> dict:
     return {**base, "desfecho": "sem_relatorio_registrado"}
 
 
-def transformar(cpis: list[dict], relatorios: list[dict], manual: dict[str, dict], hoje: date) -> dict:
-    """Agrupa as CPIs por desfecho no formato padrão do projeto."""
+def historico(todas: list[dict], classificadas: list[dict], hoje: date) -> dict:
+    """CPIs criadas por ano. Desde INICIO, separadas por desfecho."""
+    anos = [str(a) for a in range(int(min(c["dataInicio"][:4] for c in todas)), hoje.year + 1)]
+    antes = f"Criadas antes de {INICIO[:4]} (desfecho não classificado)"
+    series = {nome: [0] * len(anos) for nome, _ in DESFECHOS.values()}
+    series[antes] = [0] * len(anos)
+    for c in todas:
+        if c["dataInicio"] < INICIO:
+            series[antes][anos.index(c["dataInicio"][:4])] += 1
+    for c in classificadas:
+        series[DESFECHOS[c["desfecho"]][0]][anos.index(c["inicio"][:4])] += 1
+    series = {nome: valores for nome, valores in series.items() if any(valores)}
+    return {
+        "id": "criadas_por_ano",
+        "titulo": "CPIs criadas por ano",
+        "tipo": "barras",
+        "unidade": "CPIs",
+        "casas": 0,
+        "rotulos": anos,
+        "parcial": None,
+        "referencia": None,
+        "series": series,
+        "serie_neutra": antes,
+        "nota": (
+            f"Ano em que cada CPI foi criada. Antes de {INICIO[:4]} os registros de relatórios na API são falhos, "
+            "por isso essas CPIs aparecem sem desfecho. A API repete algumas CPIs antigas com outro número; "
+            "cada uma é contada uma vez."
+        ),
+        "fonte": {"nome": "Câmara dos Deputados, Dados Abertos", "url": "https://dadosabertos.camara.leg.br/swagger/api.html"},
+    }
+
+
+def transformar(todas: list[dict], relatorios: list[dict], manual: dict[str, dict], hoje: date) -> dict:
+    """Agrupa as CPIs criadas desde INICIO por desfecho, no formato padrão do projeto."""
+    cpis = [c for c in todas if (c.get("dataInicio") or "") >= INICIO]
     if not cpis:
         raise ErroColeta(f"Nenhuma CPI criada desde {INICIO}")
 
@@ -199,6 +241,7 @@ def transformar(cpis: list[dict], relatorios: list[dict], manual: dict[str, dict
         },
         "fatias": fatias,
         "pizzaiolo": {"frase": frase, "nota": None, "regra": None},
+        "historico": [historico(todas, classificadas, hoje)],
     }
 
 

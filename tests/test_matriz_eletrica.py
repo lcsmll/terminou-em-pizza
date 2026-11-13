@@ -7,7 +7,7 @@ import unittest
 from datetime import date
 
 from coletores.comum import ErroColeta
-from coletores.matriz_eletrica import agregar, meses_candidatos, transformar
+from coletores.matriz_eletrica import agregar, agregar_ano, historico, meses_candidatos, transformar
 
 CABECALHO = (
     "din_instante;id_subsistema;nom_subsistema;id_estado;nom_estado;cod_modalidadeoperacao;"
@@ -83,6 +83,34 @@ class TestMatrizEletrica(unittest.TestCase):
 
     def test_meses_candidatos(self):
         self.assertEqual(meses_candidatos(date(2026, 1, 15)), [(2025, 12), (2025, 11)])
+
+
+
+BALANCO = [
+    "id_subsistema;nom_subsistema;din_instante;val_gerhidraulica;val_gertermica;val_gereolica;val_gersolar;val_carga;val_intercambio",
+    "SE ;SUDESTE;2099-01-01 00:00:00;60;10;0;10;0;0",
+    "NE ;NORDESTE;2099-01-01 00:00:00;0;0;20;0;0;0",
+    # a linha SIN repete o total e não pode ser somada
+    "SIN;SISTEMA INTERLIGADO NACIONAL;2099-01-01 00:00:00;60;10;20;10;0;0",
+    "SE ;SUDESTE;2099-03-31 23:00:00;;;;;0;0",
+]
+
+
+class TestHistoricoMatriz(unittest.TestCase):
+    def test_ignora_linha_sin(self):
+        ano = agregar_ano(BALANCO)
+        self.assertEqual(sum(ano["mwh"].values()), 100)
+        self.assertEqual(ano["ultimo_instante"], "2099-03-31 23:00:00")
+
+    def test_participacao_e_ano_parcial(self):
+        anos = {2098: {"mwh": {"Hidráulica": 50, "Térmicas (todas)": 50, "Eólica": 0, "Solar": 0},
+                       "ultimo_instante": "2098-12-31 23:00:00"},
+                2099: agregar_ano(BALANCO)}
+        g = historico(anos, date(2099, 4, 10))
+        self.assertEqual(g["rotulos"], ["2098", "2099"])
+        self.assertEqual(g["series"]["Hidráulica"], [50.0, 60.0])
+        self.assertEqual(g["parcial"], {"rotulo": "2099", "texto": "até 31 de março"})
+        self.assertEqual(g["serie_da_fatia"]["Nuclear"], "Térmicas (todas)")
 
 
 if __name__ == "__main__":

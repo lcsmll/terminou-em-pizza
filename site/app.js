@@ -3,6 +3,7 @@
 
 import { corDoIngrediente } from "./ingredientes.js";
 import { EXPLICACOES } from "./textos.js";
+import { criarGrafico } from "./graficos.js";
 
 const PASTA_DADOS = "../dados/gerados/";
 
@@ -243,6 +244,14 @@ function montarPizza(dados, comPalco) {
     ? corDoIngrediente(fatia.ingrediente)
     : CORES_SVG[dados.fatias.indexOf(fatia) % CORES_SVG.length];
 
+  const graficos = (dados.historico || []).map(criarGrafico);
+  if (graficos.length) {
+    artigo.querySelector(".historia .graficos").replaceChildren(...graficos.map((g) => g.elemento));
+    graficos.forEach((g) => g.destacar(dados.fatias[0].nome));
+  } else {
+    artigo.querySelector(".historia").remove();
+  }
+
   const escolher = (fatia) => {
     const secao = artigo.querySelector(".detalhe");
     const titulo = document.createElement("h3");
@@ -267,7 +276,28 @@ function montarPizza(dados, comPalco) {
       if (el.tagName === "BUTTON") el.setAttribute("aria-pressed", String(sim));
     });
     if (comPalco) palco.selecionar(fatia.codigo);
+    graficos.forEach((g) => g.destacar(fatia.nome));
   };
+
+  const cartoes = artigo.querySelector(".fatia-a-fatia .cartoes");
+  for (const fatia of dados.fatias) {
+    const cartao = document.createElement("button");
+    cartao.type = "button";
+    cartao.className = "cartao-fatia";
+    cartao.dataset.codigo = fatia.codigo;
+    cartao.setAttribute("aria-pressed", "false");
+    cartao.style.setProperty("--cor", corDaFatia(fatia));
+    cartao.innerHTML = `<span class="topo-cartao"><span class="amostra" aria-hidden="true"></span><strong></strong></span>
+      <span class="meta"></span><span class="texto"></span>`;
+    cartao.querySelector("strong").textContent = fatia.nome;
+    cartao.querySelector(".meta").textContent = `${fatia.ingrediente} · ${rotuloValor(dados, fatia)}`;
+    cartao.querySelector(".texto").textContent = (explicacao && explicacao.fatias[fatia.nome]) || "";
+    cartao.addEventListener("click", () => {
+      escolher(fatia);
+      artigo.querySelector(".detalhe").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+    cartoes.append(cartao);
+  }
 
   if (comPalco) {
     lugar.setAttribute("aria-label", descricao);

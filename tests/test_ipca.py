@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 
 from coletores.comum import ErroColeta
-from coletores.ipca import montar_url, transformar
+from coletores.ipca import COD_GERAL, COD_GRUPOS, historico, montar_url, montar_url_historico, transformar
 
 FIXTURE = Path(__file__).parent / "fixtures" / "sidra_7060_ficticio.json"
 
@@ -65,6 +65,45 @@ class TestIpca(unittest.TestCase):
         self.assertIn("/t/7060/", url)
         self.assertIn("/v/63,66/", url)
         self.assertIn("p/last%201", url)
+
+
+
+def resposta_historico(meses):
+    """Resposta fictícia da SIDRA com peso (66) e acumulado no ano (69) para cada grupo."""
+    cab = {"V": "Valor", "D2C": "Variável (Código)", "D2N": "Variável", "D3C": "Mês (Código)", "D3N": "Mês",
+           "D4C": "Geral, grupo, subgrupo, item e subitem (Código)", "D4N": "Geral, grupo, subgrupo, item e subitem"}
+    linhas = [cab]
+    nomes_mes = {"11": "novembro", "12": "dezembro", "01": "janeiro", "02": "fevereiro", "03": "março"}
+    for mes in meses:
+        for i, cod in enumerate([COD_GERAL, *COD_GRUPOS]):
+            for var, valor in (("66", 100 if cod == COD_GERAL else 10 + i), ("69", int(mes[4:]) + i / 10)):
+                linhas.append({"V": str(valor), "D2C": var, "D2N": "x", "D3C": mes,
+                               "D3N": f"{nomes_mes[mes[4:]]} {mes[:4]}", "D4C": cod, "D4N": f"{i}.Grupo {cod}"})
+    return linhas
+
+
+class TestHistoricoIpca(unittest.TestCase):
+    def setUp(self):
+        respostas = [resposta_historico(["209712", "209811", "209812"]), resposta_historico(["209901", "209902", "209903"])]
+        self.inflacao, self.peso = historico(respostas)
+
+    def test_um_ponto_por_ano_no_ultimo_mes(self):
+        self.assertEqual(self.inflacao["rotulos"], ["2097", "2098", "2099"])
+        # dezembro nos anos fechados, março no ano corrente
+        self.assertEqual(self.inflacao["referencia"]["valores"], [12, 12, 3])
+
+    def test_ano_parcial(self):
+        self.assertEqual(self.inflacao["parcial"], {"rotulo": "2099", "texto": "até março"})
+        self.assertIn("janeiro a março", self.inflacao["nota"])
+
+    def test_series_por_nome_de_grupo(self):
+        self.assertEqual(len(self.inflacao["series"]), 9)
+        self.assertIsNone(self.peso["referencia"])
+        self.assertEqual(self.peso["series"]["Grupo 7170"], [11, 11, 11])
+
+    def test_url_historico(self):
+        self.assertIn("/t/1419/", montar_url_historico(1419))
+        self.assertIn("/v/66,69/p/all/", montar_url_historico(1419))
 
 
 if __name__ == "__main__":

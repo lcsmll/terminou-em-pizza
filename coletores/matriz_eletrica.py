@@ -1,8 +1,11 @@
 """Coletor da Quattro Energie: geração de eletricidade por fonte no último mês completo.
 
-Fonte: ONS Dados Abertos, conjunto "Geração por usina em base horária"
-  - um CSV por mês, separado por ';', com a geração horária de cada usina (MWmed)
-  - a coluna nom_tipocombustivel diz a fonte (Hidráulica, Eólica, Gás, ...)
+Fonte: ONS Dados Abertos
+  - "Geração por usina em base horária": um CSV por mês, separado por ';', com a
+    geração horária de cada usina (MWmed); a coluna nom_tipocombustivel diz a fonte
+  - "Balanço de energia nos subsistemas", para o histórico desde 2000: um CSV por
+    ano, com a geração horária de cada subsistema em quatro fontes (hidráulica,
+    térmica, eólica e solar)
 
 Uso: python -m coletores.matriz_eletrica
 """
@@ -11,18 +14,40 @@ from __future__ import annotations
 
 import calendar
 import csv
+import json
 import sys
 from collections import defaultdict
 from datetime import date
 from typing import Iterable
 
-from coletores.comum import ErroColeta, baixar_linhas, formatar_numero, log, para_numero, salvar_json
+from coletores.comum import PASTA_GERADOS, ErroColeta, baixar_linhas, formatar_numero, log, para_numero, salvar_json
 
 URL_DATASET = "https://dados.ons.org.br/dataset/geracao-usina-2"
 URL_ARQUIVO = (
     "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/geracao_usina_2_ho/"
     "GERACAO_USINA-2_{ano}_{mes:02d}.csv"
 )
+
+URL_BALANCO = (
+    "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/balanco_energia_subsistema_ho/"
+    "BALANCO_ENERGIA_SUBSISTEMA_{ano}.csv"
+)
+URL_DATASET_BALANCO = "https://dados.ons.org.br/dataset/balanco-energia-subsistema"
+ANO_INICIO_HISTORICO = 2000
+# coluna do balanço -> série do histórico
+COLUNAS_BALANCO = {
+    "val_gerhidraulica": "Hidráulica",
+    "val_gertermica": "Térmicas (todas)",
+    "val_gereolica": "Eólica",
+    "val_gersolar": "Solar",
+}
+# No balanço as térmicas vêm somadas: cada fatia térmica aponta para essa série
+SERIE_DA_FATIA = {
+    "Gás natural": "Térmicas (todas)",
+    "Nuclear": "Térmicas (todas)",
+    "Carvão": "Térmicas (todas)",
+    "Outras térmicas": "Térmicas (todas)",
+}
 
 # nom_tipocombustivel -> fatia. Combustível desconhecido faz o coletor falhar,
 # para ninguém somar uma fonte nova no lugar errado sem perceber.
@@ -162,7 +187,83 @@ def transformar(agregado: dict, ano: int, mes: int) -> dict:
     }
 
 
+def agregar_ano(linhas: Iterable[str]) -> dict:
+    """Soma a geração do ano por fonte, sem a linha 'SIN', que repete o total do país."""
+    leitor = csv.DictReader(linhas, delimiter=";")
+    obrigatorias = {"id_subsistema", "din_instante", *COLUNAS_BALANCO}
+    if not leitor.fieldnames or not obrigatorias <= set(leitor.fieldnames):
+        raise ErroColeta(f"Colunas do balanço do ONS mudaram: {leitor.fieldnames}")
+    soma = dict.fromkeys(COLUNAS_BALANCO.values(), 0.0)
+    ultimo = ""
+    for linha in leitor:
+        if linha["id_subsistema"].strip() == "SIN":
+            continue
+        for coluna, serie in COLUNAS_BALANCO.items():
+            soma[serie] += para_numero(linha[coluna]) or 0.0
+        ultimo = max(ultimo, linha["din_instante"])
+    if sum(soma.values()) <= 0:
+        raise ErroColeta("Balanço do ONS sem geração")
+    return {"mwh": soma, "ultimo_instante": ultimo}
+
+
+def historico(anos: dict[int, dict], hoje: date) -> dict:
+    """Participação de cada fonte por ano, no formato dos gráficos do site."""
+    rotulos = sorted(anos)
+    series = {}
+    for serie in COLUNAS_BALANCO.values():
+        series[serie] = [round(anos[a]["mwh"][serie] / sum(anos[a]["mwh"].values()) * 100, 2) for a in rotulos]
+    parcial = None
+    ultimo = anos[rotulos[-1]]["ultimo_instante"]
+    if rotulos[-1] == hoje.year and not ultimo.startswith(f"{hoje.year}-12-31"):
+        mes = MESES[int(ultimo[5:7]) - 1]
+        parcial = {"rotulo": str(rotulos[-1]), "texto": f"até {int(ultimo[8:10])} de {mes}"}
+    return {
+        "id": "participacao_anual",
+        "titulo": "Participação de cada fonte na geração",
+        "tipo": "linha",
+        "unidade": "%",
+        "casas": 1,
+        "rotulos": [str(a) for a in rotulos],
+        "parcial": parcial,
+        "referencia": None,
+        "series": series,
+        "serie_da_fatia": SERIE_DA_FATIA,
+        "energia_twh": [round(sum(anos[a]["mwh"].values()) / 1e6, 1) for a in rotulos],
+        "nota": (
+            "No histórico do ONS as térmicas aparecem somadas: gás natural, carvão, nuclear, óleo e biomassa. "
+            "A solar inclui a geração em telhados estimada pelo ONS."
+            + (f" Em {parcial['rotulo']}, dados de 1º de janeiro {parcial['texto']}." if parcial else "")
+        ),
+        "fonte": {"nome": "ONS, Balanço de energia nos subsistemas", "url": URL_DATASET_BALANCO},
+    }
+
+
+def anos_guardados() -> dict[int, dict]:
+    """Anos fechados que já estão no JSON anterior, para não baixar tudo de novo."""
+    anterior = PASTA_GERADOS / "matriz_eletrica.json"
+    if not anterior.exists():
+        return {}
+    guardado = json.loads(anterior.read_text(encoding="utf-8")).get("cache_balanco", {})
+    return {int(ano): dados for ano, dados in guardado.items()}
+
+
+def coletar_historico(hoje: date) -> tuple[dict, dict]:
+    anos = anos_guardados()
+    for ano in range(ANO_INICIO_HISTORICO, hoje.year + 1):
+        # o ano corrente e o anterior podem mudar; os outros vêm do JSON anterior
+        if ano in anos and ano < hoje.year - 1:
+            continue
+        anos[ano] = agregar_ano(baixar_linhas(URL_BALANCO.format(ano=ano)))
+    return historico(anos, hoje), {str(a): anos[a] for a in sorted(anos)}
+
+
 def main() -> int:
+    try:
+        grafico, cache = coletar_historico(date.today())
+    except ErroColeta as erro:
+        log.error("Histórico da matriz elétrica falhou: %s", erro)
+        return 1
+
     erros = []
     for ano, mes in meses_candidatos(date.today()):
         try:
@@ -172,6 +273,8 @@ def main() -> int:
             log.warning("%d-%02d: %s", ano, mes, erro)
             erros.append(str(erro))
             continue
+        dados["historico"] = [grafico]
+        dados["cache_balanco"] = cache
         salvar_json("matriz_eletrica", dados)
         log.info("Matriz %s: %d fatias, %s GWh", dados["periodo"], len(dados["fatias"]),
                  formatar_numero(dados["resumo"]["energia_total_gwh"]))

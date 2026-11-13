@@ -10,7 +10,7 @@ from datetime import date
 from pathlib import Path
 
 from coletores.comum import ErroColeta
-from coletores.cpis import carregar_manual, classificar, transformar
+from coletores.cpis import carregar_manual, classificar, sem_repeticao, transformar
 
 HOJE = date(2099, 6, 1)
 
@@ -102,6 +102,27 @@ class TestCpis(unittest.TestCase):
 
     def test_classificar_sem_fim_e_em_andamento(self):
         self.assertEqual(classificar(cpi(9, "CPIZ", "2099-01-01", None), [], HOJE)["desfecho"], "em_andamento")
+
+
+    def test_historico_por_ano(self):
+        antiga = cpi(7, "CPIVELHA", "2010-05-01", "2010-12-01")
+        g = transformar(CPIS + [antiga], RELATORIOS, {}, HOJE)["historico"][0]
+        self.assertEqual(g["rotulos"][0], "2010")
+        self.assertEqual(g["rotulos"][-1], "2099")
+        antes = next(v for nome, v in g["series"].items() if nome.startswith("Criadas antes"))
+        self.assertEqual(antes[0], 1)
+        aprovadas = g["series"]["Relatório final aprovado"]
+        self.assertEqual(aprovadas[g["rotulos"].index("2098")], 1)
+        # a antiga entra só no histórico, não na pizza
+        self.assertEqual(transformar(CPIS + [antiga], RELATORIOS, {}, HOJE)["total"], 6)
+
+
+class TestSemRepeticao(unittest.TestCase):
+    def test_mesma_cpi_com_ids_diferentes(self):
+        repetidas = [cpi(535288, "CPINARCO", "1999-03-15", "2000-12-05"), cpi(5288, "CPINARCO", "1999-03-15", "2000-12-05"),
+                     cpi(5289, "CPIBORRA", "1999-03-15", "1999-12-15")]
+        unicas = sem_repeticao(repetidas)
+        self.assertEqual(sorted(c["id"] for c in unicas), [5288, 5289])
 
 
 if __name__ == "__main__":

@@ -40,6 +40,22 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 
 `fatias` vem ordenada da mais pesada para a mais leve. `valor` é o que define o tamanho da fatia.
 
+Campo opcional `historico`: lista de gráficos de evolução no tempo (linha ou barras, nunca pizza).
+
+```
+"historico": [
+  {"id": "...", "titulo": "...", "tipo": "linha" | "barras", "unidade": "%", "casas": 1,
+   "rotulos": ["2012", ...], "parcial": {"rotulo": "2026", "texto": "até outubro"} | null,
+   "referencia": {"nome": "IPCA geral", "valores": [...]} | null,
+   "series": {"<nome da fatia>": [...]},
+   "serie_da_fatia": {"<nome da fatia>": "<nome da série>"},   (opcional)
+   "serie_neutra": "<nome da série>",   (opcional, barras: dados sem classificação, desenhados só com contorno)
+   "nota": "...", "fonte": {"nome": "...", "url": "..."}}
+]
+```
+
+As séries são indexadas pelo nome da fatia: ao escolher uma fatia, o site destaca a série dela.
+
 ## Comandos
 
 - Rodar um coletor: `python -m coletores.ipca` (também `matriz_eletrica` e `cpis`)
