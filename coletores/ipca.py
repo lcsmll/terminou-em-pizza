@@ -13,7 +13,7 @@ from __future__ import annotations
 import re
 import sys
 
-from coletores.comum import ErroColeta, baixar_json, log, para_numero, salvar_json
+from coletores.comum import ErroColeta, baixar_json, formatar_numero, log, para_numero, salvar_json
 
 TABELA = 7060
 VAR_VARIACAO = "63"
@@ -84,7 +84,7 @@ def transformar(resposta: list[dict]) -> dict:
         raise ErroColeta(f"Esperava um mês, vieram {sorted(meses)}")
     mes_cod = meses.pop()                      # ex.: '202610'
     periodo = f"{mes_cod[:4]}-{mes_cod[4:]}"
-    mes_nome = linhas[0][k["mes"] + "N"]       # ex.: 'outubro 2026'
+    mes_nome = linhas[0][k["mes"] + "N"].replace(" ", " de ")  # 'outubro 2026' -> 'outubro de 2026'
 
     grupos: dict[str, dict] = {}
     geral: dict[str, float | None] = {}
@@ -128,9 +128,9 @@ def transformar(resposta: list[dict]) -> dict:
 
     ipca_mes = geral.get(VAR_VARIACAO)
     maior = fatias[0]
-    frase = f"A fatia mais pesada é {maior['nome']}: {maior['valor']:.1f}% do orçamento."
+    frase = f"A fatia mais pesada é {maior['nome']}: {formatar_numero(maior['valor'])}% do orçamento."
     if ipca_mes is not None:
-        frase += f" Em {mes_nome}, o IPCA variou {ipca_mes:.2f}%."
+        frase += f" Em {mes_nome}, o IPCA variou {formatar_numero(ipca_mes, 2)}%."
 
     return {
         "tema": "IPCA",

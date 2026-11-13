@@ -9,8 +9,8 @@ Dados públicos do Brasil, servidos em fatias.
 | Sabor | Tema | Fonte | Status |
 | --- | --- | --- | --- |
 | Pizza Inflação | Pesos dos grupos do IPCA | IBGE SIDRA | Coletor validado com dados reais |
-| Quattro Energie | Matriz elétrica por fonte | ONS Dados Abertos | A fazer |
-| Calabresa da CPI | Desfechos das CPIs | Câmara dos Deputados + curadoria manual | A fazer |
+| Quattro Energie | Geração de eletricidade por fonte no último mês completo | ONS Dados Abertos | Coletor validado com dados reais |
+| Calabresa da CPI | Desfechos das CPIs da Câmara criadas desde 2015 | Câmara dos Deputados + curadoria manual | Coletor validado com dados reais |
 
 ## Como funciona
 
@@ -28,8 +28,12 @@ python -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 
-python -m coletores.ipca          # gera dados/gerados/ipca.json
+python -m coletores.ipca              # gera dados/gerados/ipca.json
+python -m coletores.matriz_eletrica   # gera dados/gerados/matriz_eletrica.json (baixa ~70 MB)
+python -m coletores.cpis              # gera dados/gerados/cpis.json
 python -m unittest discover -s tests
+
+python -m http.server 8000            # e abra http://localhost:8000/site/
 ```
 
 ## Estrutura
@@ -46,15 +50,17 @@ tests/            testes dos coletores
 
 - [x] Etapa 0: estrutura, README, CLAUDE.md
 - [x] Etapa 1: coletor do IPCA com testes, validado com dados reais (outubro de 2026: 9 grupos, soma dos pesos 100,00%)
-- [ ] Etapa 2: primeira pizza na tela (2D)
+- [x] Etapa 2: primeira pizza na tela (2D, SVG): as três pizzas, legenda, fonte e data. Visual provisório, design a fazer
 - [ ] Etapa 3: pizza 3D
-- [ ] Etapa 4: detalhe da fatia e nota do pizzaiolo
-- [ ] Etapa 5: Matriz elétrica e CPIs
+- [ ] Etapa 4: detalhe da fatia e nota do pizzaiolo (detalhe da fatia pronto; falta a nota)
+- [x] Etapa 5: coletores da Matriz elétrica e das CPIs, com testes e dados reais
 - [ ] Etapa 6: GitHub Actions e GitHub Pages
 
 ## Fontes
 
 - IPCA: [IBGE SIDRA, tabela 7060](https://sidra.ibge.gov.br/tabela/7060) (variação mensal e peso mensal por grupo)
+- Matriz elétrica: [ONS, Geração por usina em base horária](https://dados.ons.org.br/dataset/geracao-usina-2). Soma a geração horária do mês por tipo de combustível. Inclui a geração distribuída (MMGD) estimada pelo ONS. Óleo, biomassa, resíduos industriais e multicombustível ficam juntos em "Outras térmicas".
+- CPIs: [API de Dados Abertos da Câmara](https://dadosabertos.camara.leg.br/swagger/api.html). A API não tem campo de desfecho. O coletor considera "relatório aprovado" quando um relatório (REL) da CPI tem tramitação "Aprovação de Proposição Interna". Quando a API não registra o desfecho, a CPI aparece como "sem relatório registrado na API" até ser corrigida em `dados/manual/cpis_desfechos.json`, sempre com link da fonte.
 
 ## Autor
 

@@ -1,0 +1,111 @@
+{
+  "tema": "Matriz elétrica",
+  "sabor": "Quattro Energie",
+  "periodo": "2026-10",
+  "periodo_nome": "outubro de 2026",
+  "total": 100.0,
+  "unidade": "%",
+  "fonte": {
+    "nome": "ONS, Geração por usina em base horária",
+    "url": "https://dados.ons.org.br/dataset/geracao-usina-2"
+  },
+  "resumo": {
+    "energia_total_gwh": 62531.1,
+    "potencia_media_mwmed": 84047.2,
+    "renovaveis_pct": 88.07
+  },
+  "fatias": [
+    {
+      "ordem": 1,
+      "codigo": "hidráulica",
+      "nome": "Hidráulica",
+      "ingrediente": "Muçarela de búfala",
+      "valor": 54.41,
+      "detalhe": {
+        "energia_gwh": 34021.3,
+        "potencia_media_mwmed": 45727.5
+      }
+    },
+    {
+      "ordem": 2,
+      "codigo": "solar",
+      "nome": "Solar",
+      "ingrediente": "Milho",
+      "valor": 17.62,
+      "detalhe": {
+        "energia_gwh": 11019.9,
+        "potencia_media_mwmed": 14811.6,
+        "geracao_distribuida_pct": 66.78
+      }
+    },
+    {
+      "ordem": 3,
+      "codigo": "eólica",
+      "nome": "Eólica",
+      "ingrediente": "Manjericão",
+      "valor": 16.04,
+      "detalhe": {
+        "energia_gwh": 10028.3,
+        "potencia_media_mwmed": 13478.8
+      }
+    },
+    {
+      "ordem": 4,
+      "codigo": "gás_natural",
+      "nome": "Gás natural",
+      "ingrediente": "Cebola",
+      "valor": 5.85,
+      "detalhe": {
+        "energia_gwh": 3656.7,
+        "potencia_media_mwmed": 4914.9
+      }
+    },
+    {
+      "ordem": 5,
+      "codigo": "outras_térmicas",
+      "nome": "Outras térmicas",
+      "ingrediente": "Pimenta calabresa",
+      "valor": 3.4,
+      "detalhe": {
+        "energia_gwh": 2126.3,
+        "potencia_media_mwmed": 2857.9,
+        "composicao_pct": {
+          "Outras Multi-Combustível": 67.17,
+          "Resíduos Industriais": 23.17,
+          "Biomassa": 5.96,
+          "Óleo Combustível": 2.65,
+          "Óleo Diesel": 0.78,
+          "Multi-Combustível Diesel/Óleo": 0.27
+        }
+      }
+    },
+    {
+      "ordem": 6,
+      "codigo": "nuclear",
+      "nome": "Nuclear",
+      "ingrediente": "Azeitona verde",
+      "valor": 1.61,
+      "detalhe": {
+        "energia_gwh": 1009.4,
+        "potencia_media_mwmed": 1356.7
+      }
+    },
+    {
+      "ordem": 7,
+      "codigo": "carvão",
+      "nome": "Carvão",
+      "ingrediente": "Azeitona preta",
+      "valor": 1.07,
+      "detalhe": {
+        "energia_gwh": 669.4,
+        "potencia_media_mwmed": 899.7
+      }
+    }
+  ],
+  "pizzaiolo": {
+    "frase": "Em outubro de 2026, a fonte hidráulica gerou 54,4% da eletricidade do país. Água, sol e vento somaram 88,1%.",
+    "nota": null,
+    "regra": null
+  },
+  "atualizado_em": "2026-11-13"
+}

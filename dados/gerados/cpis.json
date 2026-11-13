@@ -1,0 +1,406 @@
+{
+  "tema": "CPIs",
+  "sabor": "Calabresa da CPI",
+  "periodo": "2015/2026",
+  "periodo_nome": "CPIs da Câmara criadas de 2015 a 2026",
+  "total": 25,
+  "unidade": "CPIs",
+  "fonte": {
+    "nome": "Câmara dos Deputados, Dados Abertos",
+    "url": "https://dadosabertos.camara.leg.br/swagger/api.html"
+  },
+  "resumo": {
+    "cpis": 25,
+    "relatorio_aprovado": 12,
+    "corrigidas_manualmente": 0
+  },
+  "fatias": [
+    {
+      "ordem": 1,
+      "codigo": "relatorio_aprovado",
+      "nome": "Relatório final aprovado",
+      "ingrediente": "Calabresa",
+      "valor": 12,
+      "detalhe": {
+        "percentual": 48.0,
+        "cpis": [
+          {
+            "id": 537484,
+            "sigla": "CPIJOVEM",
+            "nome": "CPI da Violência contra Jovens Negros e Pobres",
+            "inicio": "2015-03-04",
+            "fim": "2015-07-15",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537484",
+            "relatorios": [
+              "REL 1/2015",
+              "REL 2/2015",
+              "REL 3/2015"
+            ],
+            "evidencia": "REL 3/2015, 15/07/2015: Aprovado por unanimidade.",
+            "origem": "api"
+          },
+          {
+            "id": 537485,
+            "sigla": "CPICARCE",
+            "nome": "CPI do Sistema Carcerário Brasileiro",
+            "inicio": "2015-03-04",
+            "fim": "2015-08-08",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537485",
+            "relatorios": [
+              "REL 1/2015",
+              "REL 2/2015",
+              "REL 3/2015"
+            ],
+            "evidencia": "REL 2/2015, 05/08/2015: Aprovado o Relatório Final da CPI.",
+            "origem": "api"
+          },
+          {
+            "id": 537487,
+            "sigla": "CPIORTES",
+            "nome": "CPI da Máfia das Órteses e Próteses no Brasil",
+            "inicio": "2015-03-04",
+            "fim": "2015-07-15",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537487",
+            "relatorios": [
+              "REL 1/2015",
+              "REL 2/2015",
+              "REL 3/2015"
+            ],
+            "evidencia": "REL 2/2015, 15/07/2015: Aprovado por unanimidade.",
+            "origem": "api"
+          },
+          {
+            "id": 537731,
+            "sigla": "CPICIBER",
+            "nome": "CPI dos Crimes Cibernéticos",
+            "inicio": "2015-07-17",
+            "fim": "2016-05-04",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537731",
+            "relatorios": [
+              "REL 1/2016",
+              "REL 2/2016",
+              "REL 3/2016",
+              "REL 4/2016"
+            ],
+            "evidencia": "REL 3/2016, 04/05/2016: Aprovado, com reformulação, em razão da aprovação do Destaque n. 14 (Dep. Nelson Marchezan Junior).",
+            "origem": "api"
+          },
+          {
+            "id": 537734,
+            "sigla": "CPIBNDES",
+            "nome": "CPI do BNDES",
+            "inicio": "2015-07-17",
+            "fim": "2016-02-25",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537734",
+            "relatorios": [
+              "REL 1/2016",
+              "REL 2/2016",
+              "REL 3/2016",
+              "REL 4/2016",
+              "REL 5/2016",
+              "REL 6/2016"
+            ],
+            "evidencia": "REL 6/2016, 25/02/2016: Aprovado, contra os votos dos Deputados Carlos Melles, Bilac Pinto, Alexandre Baldy, João Gualberto, Betinho Gomes, Miguel Haddad e Sérgio Vidigal.",
+            "origem": "api"
+          },
+          {
+            "id": 537733,
+            "sigla": "CPIFUNDO",
+            "nome": "CPI dos Fundos de Pensão",
+            "inicio": "2015-08-06",
+            "fim": "2016-04-14",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537733",
+            "relatorios": [
+              "REL 1/2016",
+              "REL 2/2016",
+              "REL 3/2016"
+            ],
+            "evidencia": "REL 2/2016, 14/04/2016: Aprovado, com alterações. O Relator acatou sugestões apresentadas pelos membros.",
+            "origem": "api"
+          },
+          {
+            "id": 537914,
+            "sigla": "CPIROUAN",
+            "nome": "CPI da Lei Rouanet",
+            "inicio": "2016-07-11",
+            "fim": "2017-05-09",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537914",
+            "relatorios": [
+              "REL 1/2017",
+              "REL 2/2017",
+              "REL 3/2017"
+            ],
+            "evidencia": "REL 2/2017, 09/05/2017: Aprovado, com as sugestões acatadas pelo Relator",
+            "origem": "api"
+          },
+          {
+            "id": 537931,
+            "sigla": "CPIFUNA2",
+            "nome": "CPI da FUNAI e INCRA 2",
+            "inicio": "2016-08-30",
+            "fim": "2017-05-30",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537931",
+            "relatorios": [
+              "REL 1/2017",
+              "REL 2/2017"
+            ],
+            "evidencia": "REL 1/2017, 17/05/2017: Aprovado, ressalvados os destaques.",
+            "origem": "api"
+          },
+          {
+            "id": 538350,
+            "sigla": "CPIBRUMA",
+            "nome": "CPI do Rompimento da Barragem de Brumadinho",
+            "inicio": "2019-03-14",
+            "fim": "2019-11-05",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/538350",
+            "relatorios": [
+              "REL 1/2019"
+            ],
+            "evidencia": "REL 1/2019, 05/11/2019: Aprovado, com complementação e sugestões acatadas pelo relator dep. Rogério Correia.",
+            "origem": "api"
+          },
+          {
+            "id": 538435,
+            "sigla": "CPIBNDES",
+            "nome": "CPI das Práticas Ilícitas no âmbito do BNDES",
+            "inicio": "2019-03-14",
+            "fim": "2019-10-22",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/538435",
+            "relatorios": [
+              "REL 1/2019",
+              "REL 2/2019"
+            ],
+            "evidencia": "REL 1/2019, 22/10/2019: Aprovado o Relatório.Votaram sim:19, não:10, abs.0:, total:29",
+            "origem": "api"
+          },
+          {
+            "id": 539426,
+            "sigla": "CPIAMERI",
+            "nome": "CPI sobre a Empresa Americanas S.A.",
+            "inicio": "2023-04-26",
+            "fim": "2023-09-26",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/539426",
+            "relatorios": [
+              "REL 1/2023",
+              "REL 2/2023"
+            ],
+            "evidencia": "REL 2/2023, 26/09/2023: Aprovado o Relatório do Relator. Sim: 18; Não: 8; Abstenção: 0; Quórum de Votação: 26. Obstrução: 0; e Total de Votantes: 26.",
+            "origem": "api"
+          },
+          {
+            "id": 539461,
+            "sigla": "CPIPIRAM",
+            "nome": "CPI sobre as Pirâmides Financeiras",
+            "inicio": "2023-05-17",
+            "fim": "2023-10-09",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/539461",
+            "relatorios": [
+              "REL 1/2023"
+            ],
+            "evidencia": "REL 1/2023, 09/10/2023: Aprovado.",
+            "origem": "api"
+          }
+        ]
+      }
+    },
+    {
+      "ordem": 2,
+      "codigo": "relatorio_sem_aprovacao",
+      "nome": "Relatório apresentado, sem aprovação registrada",
+      "ingrediente": "Cebola",
+      "valor": 5,
+      "detalhe": {
+        "percentual": 20.0,
+        "cpis": [
+          {
+            "id": 537732,
+            "sigla": "CPIANIM",
+            "nome": "CPI dos Maus-Tratos de Animais",
+            "inicio": "2015-07-17",
+            "fim": "2016-02-02",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537732",
+            "relatorios": [
+              "REL 1/2016"
+            ],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 537842,
+            "sigla": "CPICARF",
+            "nome": "CPI do CARF",
+            "inicio": "2016-02-04",
+            "fim": "2016-08-12",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537842",
+            "relatorios": [
+              "REL 1/2016"
+            ],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 537849,
+            "sigla": "CPIMAFUT",
+            "nome": "CPI da Máfia do Futebol",
+            "inicio": "2016-03-01",
+            "fim": "2016-08-10",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537849",
+            "relatorios": [
+              "REL 1/2016",
+              "REL 2/2016",
+              "REL 3/2016"
+            ],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 539429,
+            "sigla": "CPIFUTE",
+            "nome": "CPI sobre a Manipulação de Resultado em Partidas de Futebol",
+            "inicio": "2023-04-26",
+            "fim": "2023-09-26",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/539429",
+            "relatorios": [
+              "REL 1/2023"
+            ],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 539430,
+            "sigla": "CPIMST",
+            "nome": "CPI sobre o Movimento dos Trabalhadores sem Terra (MST)",
+            "inicio": "2023-04-26",
+            "fim": "2023-09-26",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/539430",
+            "relatorios": [
+              "REL 1/2023",
+              "REL 2/2023"
+            ],
+            "evidencia": null,
+            "origem": "api"
+          }
+        ]
+      }
+    },
+    {
+      "ordem": 3,
+      "codigo": "sem_relatorio_registrado",
+      "nome": "Sem relatório registrado na API",
+      "ingrediente": "Azeitona preta",
+      "valor": 4,
+      "detalhe": {
+        "percentual": 16.0,
+        "cpis": [
+          {
+            "id": 537337,
+            "sigla": "CPIPETRO",
+            "nome": "CPI da PETROBRAS",
+            "inicio": "2015-02-05",
+            "fim": "2015-10-22",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537337",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 537792,
+            "sigla": "CPIFUNAI",
+            "nome": "CPI da FUNAI e INCRA",
+            "inicio": "2015-10-28",
+            "fim": "2016-08-18",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537792",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 537869,
+            "sigla": "CPIDPVAT",
+            "nome": "CPI do DPVAT",
+            "inicio": "2016-05-04",
+            "fim": "2016-09-29",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537869",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 538734,
+            "sigla": "CPIOLEO",
+            "nome": "CPI do Derramamento de Óleo no Nordeste",
+            "inicio": "2019-11-13",
+            "fim": "2021-05-18",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/538734",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          }
+        ]
+      }
+    },
+    {
+      "ordem": 4,
+      "codigo": "nao_instalada",
+      "nome": "Criada e não instalada",
+      "ingrediente": "Orégano",
+      "valor": 4,
+      "detalhe": {
+        "percentual": 16.0,
+        "cpis": [
+          {
+            "id": 537872,
+            "sigla": "CPIUNE",
+            "nome": "CPI da UNE",
+            "inicio": "2016-05-04",
+            "fim": "2016-07-11",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537872",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 537992,
+            "sigla": "CPIMULT",
+            "nome": "CPI - INDÚSTRIA DAS MULTAS",
+            "inicio": "2017-02-07",
+            "fim": "2019-01-31",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/537992",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 538047,
+            "sigla": "CPICRIME",
+            "nome": "CPI CRIME ORGANIZADO NO BRASIL",
+            "inicio": "2017-07-06",
+            "fim": "2019-01-31",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/538047",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          },
+          {
+            "id": 538212,
+            "sigla": "CPIPARA",
+            "nome": "CPI - VAZAMENTO DE MINERAÇÃO EM BARCARENA / PARÁ",
+            "inicio": "2018-07-03",
+            "fim": "2019-01-31",
+            "url": "https://dadosabertos.camara.leg.br/api/v2/orgaos/538212",
+            "relatorios": [],
+            "evidencia": null,
+            "origem": "api"
+          }
+        ]
+      }
+    }
+  ],
+  "pizzaiolo": {
+    "frase": "Desde 2015, a Câmara criou 25 CPIs. 12 terminaram com relatório final aprovado.",
+    "nota": null,
+    "regra": null
+  },
+  "atualizado_em": "2026-11-13"
+}

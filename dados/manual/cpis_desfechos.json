@@ -1,0 +1,4 @@
+{
+  "_leia": "Correções manuais do desfecho de CPIs, por id do órgão na API da Câmara. Use só quando a API não registra o desfecho. Cada item precisa de 'desfecho' (relatorio_aprovado, relatorio_sem_aprovacao, sem_relatorio_registrado, nao_instalada, em_andamento) e 'fonte' (link oficial). Exemplo: \"<id>\": {\"desfecho\": \"relatorio_aprovado\", \"fonte\": \"https://...\", \"observacao\": \"Relatório aprovado em 22/10/2015\"}",
+  "cpis": {}
+}

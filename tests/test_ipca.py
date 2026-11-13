@@ -45,7 +45,7 @@ class TestIpca(unittest.TestCase):
     def test_frase_do_pizzaiolo_usa_dados(self):
         frase = transformar(self.resposta)["pizzaiolo"]["frase"]
         self.assertIn("Alimentação e bebidas", frase)
-        self.assertIn("0.50%", frase)
+        self.assertIn("0,50%", frase)
 
     def test_falha_se_soma_nao_fecha(self):
         ruim = copy.deepcopy(self.resposta)

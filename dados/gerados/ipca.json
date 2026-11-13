@@ -2,7 +2,7 @@
   "tema": "IPCA",
   "sabor": "Pizza Inflação",
   "periodo": "2026-10",
-  "periodo_nome": "outubro 2026",
+  "periodo_nome": "outubro de 2026",
   "total": 100.0002,
   "unidade": "%",
   "fonte": {
@@ -123,7 +123,7 @@
     }
   ],
   "pizzaiolo": {
-    "frase": "A fatia mais pesada é Alimentação e bebidas: 21.5% do orçamento. Em outubro 2026, o IPCA variou 0.14%.",
+    "frase": "A fatia mais pesada é Alimentação e bebidas: 21,5% do orçamento. Em outubro de 2026, o IPCA variou 0,14%.",
     "nota": null,
     "regra": null
   },

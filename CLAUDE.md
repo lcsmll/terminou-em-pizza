@@ -40,7 +40,7 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 
 ## Comandos
 
-- Rodar um coletor: `python -m coletores.ipca`
+- Rodar um coletor: `python -m coletores.ipca` (também `matriz_eletrica` e `cpis`)
 - Testes: `python -m unittest discover -s tests`
 - Ver o site localmente: `python -m http.server 8000` na raiz e abrir `http://localhost:8000/site/`
 
@@ -48,8 +48,8 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 
 0. Estrutura do projeto (feito)
 1. Coletor do IPCA (feito e validado com dados reais)
-2. Primeira pizza na tela (2D, SVG)
+2. Primeira pizza na tela (2D, SVG) (feito; visual provisório, design a fazer)
 3. Pizza 3D (Three.js)
-4. Detalhe da fatia e pizzaiolo
-5. Matriz elétrica e CPIs
+4. Detalhe da fatia e pizzaiolo (detalhe feito; falta a nota)
+5. Matriz elétrica e CPIs (coletores feitos e validados com dados reais)
 6. Automação (GitHub Actions) e publicação (GitHub Pages)

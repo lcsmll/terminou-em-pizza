@@ -21,19 +21,40 @@ class ErroColeta(Exception):
     """Falha ao buscar ou validar dados. O JSON anterior é mantido."""
 
 
-def baixar_json(url: str, tentativas: int = 3, timeout: int = 60):
+def baixar_json(url: str, tentativas: int = 3, timeout: int = 60, silencioso: bool = False):
     """Baixa um JSON com algumas tentativas e espera crescente."""
     ultimo_erro = None
     for n in range(1, tentativas + 1):
         try:
-            log.info("GET %s (tentativa %d)", url, n)
-            resp = requests.get(url, timeout=timeout)
+            if not silencioso:
+                log.info("GET %s (tentativa %d)", url, n)
+            resp = requests.get(url, timeout=timeout, headers={"Accept": "application/json"})
             resp.raise_for_status()
             return resp.json()
         except (requests.RequestException, ValueError) as erro:
             ultimo_erro = erro
             time.sleep(2 * n)
     raise ErroColeta(f"Não consegui baixar {url}: {ultimo_erro}")
+
+
+def baixar_linhas(url: str, timeout: int = 120):
+    """Baixa um arquivo de texto grande em streaming, linha a linha, sem guardar tudo na memória."""
+    log.info("GET %s (streaming)", url)
+    try:
+        resp = requests.get(url, timeout=timeout, stream=True)
+        if resp.status_code == 404:
+            raise ErroColeta(f"Arquivo não encontrado: {url}")
+        resp.raise_for_status()
+        for linha in resp.iter_lines(decode_unicode=False):
+            yield linha.decode("utf-8")
+    except requests.RequestException as erro:
+        raise ErroColeta(f"Não consegui baixar {url}: {erro}") from erro
+
+
+def formatar_numero(valor: float, casas: int = 1) -> str:
+    """Formato brasileiro: 1234.5 -> '1.234,5'."""
+    texto = f"{valor:,.{casas}f}"
+    return texto.replace(",", "_").replace(".", ",").replace("_", ".")
 
 
 def para_numero(texto: str) -> float | None:

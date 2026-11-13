@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terminou em Pizza</title>
+  <meta name="description" content="Dados públicos do Brasil, servidos em fatias.">
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <header class="topo">
+    <h1>Terminou em Pizza</h1>
+    <p class="lema">Dados públicos do Brasil, servidos em fatias.</p>
+    <nav class="cardapio" aria-label="Cardápio de pizzas" id="cardapio"></nav>
+  </header>
+
+  <main id="conteudo" aria-live="polite">
+    <p class="aviso">Carregando o forno...</p>
+  </main>
+
+  <template id="modelo-pizza">
+    <article class="pizza">
+      <header>
+        <p class="tema"></p>
+        <h2 class="sabor"></h2>
+        <p class="periodo"></p>
+      </header>
+
+      <div class="mesa">
+        <figure class="forma">
+          <svg class="grafico" viewBox="-110 -110 220 220" role="img"></svg>
+          <figcaption class="total"></figcaption>
+        </figure>
+
+        <div class="lado">
+          <blockquote class="pizzaiolo"></blockquote>
+          <ol class="fatias"></ol>
+        </div>
+      </div>
+
+      <section class="detalhe" hidden>
+        <h3></h3>
+        <div class="corpo"></div>
+      </section>
+
+      <footer class="rodape-pizza">
+        <p>Fonte: <a class="fonte" target="_blank" rel="noopener"></a></p>
+        <p>Atualizado em <time class="atualizado"></time></p>
+      </footer>
+    </article>
+  </template>
+
+  <footer class="rodape">
+    <p>Projeto de portfólio de Lucas Mello. Código em
+      <a href="https://github.com/lcsmll/terminou-em-pizza" target="_blank" rel="noopener">github.com/lcsmll/terminou-em-pizza</a>.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

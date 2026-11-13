@@ -1,0 +1,118 @@
+/* Estilo provisório: estrutura e legibilidade. O visual definitivo vem na etapa de design. */
+
+:root {
+  --fundo: #faf7f2;
+  --texto: #222;
+  --suave: #666;
+  --linha: #ddd;
+  --destaque: #c0392b;
+  --cartao: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #1b1a18;
+    --texto: #eee;
+    --suave: #aaa;
+    --linha: #3a3835;
+    --destaque: #e57368;
+    --cartao: #252320;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+a { color: var(--destaque); }
+
+.topo, main, .rodape {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.topo h1 { margin: 24px 0 0; }
+.lema { margin: 0 0 16px; color: var(--suave); }
+
+.cardapio { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.cardapio a {
+  padding: 6px 14px;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--texto);
+}
+.cardapio a[aria-current="page"] { border-color: var(--destaque); color: var(--destaque); font-weight: 600; }
+
+.pizza header p { margin: 0; color: var(--suave); }
+.pizza .sabor { margin: 0; }
+
+.mesa {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin: 24px 0;
+}
+@media (max-width: 720px) { .mesa { grid-template-columns: 1fr; } }
+
+.forma { margin: 0; text-align: center; }
+.grafico { width: 100%; max-width: 420px; height: auto; }
+.total { color: var(--suave); font-size: 0.9em; }
+
+.fatia { stroke: var(--fundo); stroke-width: 1; cursor: pointer; transition: opacity 0.15s; }
+.fatia:hover, .fatia:focus-visible { opacity: 0.8; outline: none; }
+.fatia.escolhida { stroke: var(--texto); stroke-width: 2; }
+
+.pizzaiolo {
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  border-left: 4px solid var(--destaque);
+  background: var(--cartao);
+}
+
+.fatias { list-style: none; margin: 0; padding: 0; }
+.fatias button {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  grid-template-areas: "cor nome valor" "cor ingrediente valor";
+  column-gap: 10px;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-bottom: 1px solid var(--linha);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.fatias button:hover, .fatias button.escolhida { background: var(--cartao); }
+.amostra { grid-area: cor; align-self: center; width: 14px; height: 14px; border-radius: 3px; background: var(--cor); }
+.fatias .nome { grid-area: nome; }
+.fatias .ingrediente { grid-area: ingrediente; color: var(--suave); font-size: 0.85em; }
+.fatias .valor { grid-area: valor; align-self: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.detalhe { padding: 16px; background: var(--cartao); border: 1px solid var(--linha); border-radius: 8px; }
+.detalhe h3 { margin-top: 0; }
+.detalhe dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: 0 0 8px; }
+.detalhe dt { color: var(--suave); }
+.detalhe dd { margin: 0; font-variant-numeric: tabular-nums; }
+.lista-cpis { padding-left: 18px; }
+.lista-cpis li { margin-bottom: 10px; }
+.lista-cpis p { margin: 2px 0; color: var(--suave); font-size: 0.9em; }
+
+.rodape-pizza { margin-top: 24px; color: var(--suave); font-size: 0.9em; }
+.rodape-pizza p { margin: 0; }
+
+.aviso { color: var(--suave); }
+.aviso.erro { color: var(--destaque); }
+
+.rodape { margin-top: 48px; padding-bottom: 32px; color: var(--suave); font-size: 0.85em; }
