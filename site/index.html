@@ -5,22 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Terminou em Pizza</title>
   <meta name="description" content="Dados públicos do Brasil, servidos em fatias.">
+  <meta name="theme-color" content="#16100c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilo.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
 </head>
 <body>
   <header class="topo">
-    <h1>Terminou em Pizza</h1>
-    <p class="lema">Dados públicos do Brasil, servidos em fatias.</p>
-    <nav class="cardapio" aria-label="Cardápio de pizzas" id="cardapio"></nav>
+    <div class="marca">
+      <p class="selo">Pizzaria de dados públicos</p>
+      <h1>Terminou <em>em</em> Pizza</h1>
+      <p class="lema">Dados públicos do Brasil, servidos em fatias. Cada pizza é um tema, cada fatia uma parte do todo.</p>
+    </div>
+    <nav class="cardapio" aria-label="Cardápio" id="cardapio"></nav>
   </header>
 
   <main id="conteudo" aria-live="polite">
-    <p class="aviso">Carregando o forno...</p>
+    <p class="aviso">Acendendo o forno...</p>
   </main>
 
   <template id="modelo-pizza">
     <article class="pizza">
-      <header>
+      <header class="cabeca">
         <p class="tema"></p>
         <h2 class="sabor"></h2>
         <p class="periodo"></p>
@@ -28,19 +43,25 @@
 
       <div class="mesa">
         <figure class="forma">
-          <svg class="grafico" viewBox="-110 -110 220 220" role="img"></svg>
-          <figcaption class="total"></figcaption>
+          <div class="palco" role="img"></div>
+          <svg class="grafico" viewBox="-110 -110 220 220" role="img" hidden></svg>
+          <figcaption>
+            <span class="total"></span>
+            <span class="instrucao"></span>
+          </figcaption>
         </figure>
 
-        <div class="lado">
-          <blockquote class="pizzaiolo"></blockquote>
-          <ol class="fatias"></ol>
-        </div>
+        <aside class="lado">
+          <figure class="pizzaiolo">
+            <figcaption>O pizzaiolo diz</figcaption>
+            <blockquote></blockquote>
+          </figure>
+          <ol class="fatias" aria-label="Fatias"></ol>
+        </aside>
       </div>
 
-      <section class="detalhe" hidden>
-        <h3></h3>
-        <div class="corpo"></div>
+      <section class="detalhe" aria-live="polite">
+        <p class="vazio">Escolha uma fatia para ver o que vai nela.</p>
       </section>
 
       <footer class="rodape-pizza">
@@ -51,11 +72,11 @@
   </template>
 
   <footer class="rodape">
-    <p>Projeto de portfólio de Lucas Mello. Código em
-      <a href="https://github.com/lcsmll/terminou-em-pizza" target="_blank" rel="noopener">github.com/lcsmll/terminou-em-pizza</a>.
+    <p>Projeto de portfólio de Lucas Mello. Os números vêm direto das fontes oficiais, sem edição.
+      Código em <a href="https://github.com/lcsmll/terminou-em-pizza" target="_blank" rel="noopener">github.com/lcsmll/terminou-em-pizza</a>.
     </p>
   </footer>
 
-  <script src="app.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>

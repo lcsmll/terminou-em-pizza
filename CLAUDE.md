@@ -11,7 +11,8 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 ## Regras
 
 - Coletores: Python 3.11, só `requests` e biblioteca padrão.
-- Site: HTML, CSS e JavaScript puros. Three.js via CDN com versão fixa. Sem framework e sem build.
+- Site: HTML, CSS e JavaScript puros. Three.js via CDN com versão fixa (0.160.0, no import map). Sem framework e sem build.
+- Ingrediente novo: adicionar a receita em `site/ingredientes.js`, senão a fatia sai só com orégano.
 - Textos em português, sem emoji.
 - Todo número exibido precisa ter fonte e data de atualização.
 - Nunca inventar dado. Se um valor não existe, o coletor falha com mensagem clara e o site mantém o último JSON válido.
@@ -48,8 +49,8 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 
 0. Estrutura do projeto (feito)
 1. Coletor do IPCA (feito e validado com dados reais)
-2. Primeira pizza na tela (2D, SVG) (feito; visual provisório, design a fazer)
-3. Pizza 3D (Three.js)
+2. Primeira pizza na tela (2D, SVG) (feito; hoje é a reserva sem WebGL)
+3. Pizza 3D (Three.js) (feito: pizza realista, texturas em canvas, visual de pizzaria)
 4. Detalhe da fatia e pizzaiolo (detalhe feito; falta a nota)
 5. Matriz elétrica e CPIs (coletores feitos e validados com dados reais)
 6. Automação (GitHub Actions) e publicação (GitHub Pages)

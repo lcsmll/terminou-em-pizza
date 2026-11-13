@@ -1,118 +1,334 @@
-/* Estilo provisório: estrutura e legibilidade. O visual definitivo vem na etapa de design. */
+/* Terminou em Pizza: clima de pizzaria à noite, forno aceso, mesa de madeira. */
 
 :root {
-  --fundo: #faf7f2;
-  --texto: #222;
-  --suave: #666;
-  --linha: #ddd;
-  --destaque: #c0392b;
-  --cartao: #fff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fundo: #1b1a18;
-    --texto: #eee;
-    --suave: #aaa;
-    --linha: #3a3835;
-    --destaque: #e57368;
-    --cartao: #252320;
-  }
+  color-scheme: dark;
+  --fundo: #16100c;
+  --fundo-2: #1f1712;
+  --cartao: #241b15;
+  --linha: #3a2c22;
+  --texto: #f3e8d6;
+  --suave: #b8a48b;
+  --apagado: #8a7864;
+  --tomate: #e2553a;
+  --manjericao: #7fa65a;
+  --queijo: #f1cd74;
+  --titulo: "Fraunces", Georgia, "Times New Roman", serif;
+  --corpo: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 * { box-sizing: border-box; }
 
+[hidden] { display: none !important; }
+
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.5;
-  background: var(--fundo);
+  font-family: var(--corpo);
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--texto);
+  background:
+    radial-gradient(ellipse 70% 50% at 30% 38%, rgba(226, 110, 50, 0.16), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(241, 205, 116, 0.06), transparent 70%),
+    var(--fundo);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-a { color: var(--destaque); }
+a { color: var(--queijo); text-underline-offset: 3px; }
+a:hover { color: #fff3cf; }
+
+:focus-visible { outline: 2px solid var(--queijo); outline-offset: 3px; }
 
 .topo, main, .rodape {
-  max-width: 1000px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
-.topo h1 { margin: 24px 0 0; }
-.lema { margin: 0 0 16px; color: var(--suave); }
+/* ---------- topo ---------- */
 
-.cardapio { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 48px;
+  padding-top: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.selo {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tomate);
+  font-weight: 600;
+}
+
+.topo h1 {
+  margin: 0;
+  font-family: var(--titulo);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.topo h1 em { font-weight: 400; color: var(--queijo); }
+
+.lema { margin: 12px 0 0; max-width: 42ch; color: var(--suave); }
+
+.cardapio { display: flex; flex-wrap: wrap; gap: 10px; }
 .cardapio a {
-  padding: 6px 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 10px;
+  min-width: 170px;
+  padding: 10px 16px 10px 12px;
   border: 1px solid var(--linha);
-  border-radius: 999px;
-  text-decoration: none;
+  border-radius: 12px;
+  background: rgba(36, 27, 21, 0.6);
   color: var(--texto);
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
-.cardapio a[aria-current="page"] { border-color: var(--destaque); color: var(--destaque); font-weight: 600; }
+.cardapio a:hover { border-color: #5a4433; transform: translateY(-1px); }
+.cardapio .num {
+  grid-row: span 2;
+  align-self: center;
+  font-family: var(--titulo);
+  font-size: 1.3rem;
+  color: var(--apagado);
+}
+.cardapio .sabor-menu { font-family: var(--titulo); font-weight: 600; font-size: 1.05rem; line-height: 1.2; }
+.cardapio .tema-menu { font-size: 0.8rem; color: var(--suave); }
+.cardapio a[aria-current="page"] {
+  border-color: var(--tomate);
+  background: linear-gradient(135deg, rgba(226, 85, 58, 0.22), rgba(226, 85, 58, 0.06));
+}
+.cardapio a[aria-current="page"] .num { color: var(--tomate); }
 
-.pizza header p { margin: 0; color: var(--suave); }
-.pizza .sabor { margin: 0; }
+/* ---------- pizza ---------- */
+
+main { padding-top: 36px; }
+
+.cabeca .tema {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--manjericao);
+  font-weight: 600;
+}
+.cabeca .sabor {
+  margin: 4px 0 2px;
+  font-family: var(--titulo);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  line-height: 1.05;
+}
+.cabeca .periodo { margin: 0; color: var(--suave); }
 
 .mesa {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 32px;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 32px 48px;
   align-items: start;
-  margin: 24px 0;
+  margin: 12px 0 28px;
 }
-@media (max-width: 720px) { .mesa { grid-template-columns: 1fr; } }
 
-.forma { margin: 0; text-align: center; }
-.grafico { width: 100%; max-width: 420px; height: auto; }
-.total { color: var(--suave); font-size: 0.9em; }
+.forma { margin: 0; }
+.palco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.92;
+  min-height: 320px;
+}
+.pizza-3d { position: absolute; inset: 0; display: block; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+.pizza-3d:active { cursor: grabbing; }
 
-.fatia { stroke: var(--fundo); stroke-width: 1; cursor: pointer; transition: opacity 0.15s; }
-.fatia:hover, .fatia:focus-visible { opacity: 0.8; outline: none; }
-.fatia.escolhida { stroke: var(--texto); stroke-width: 2; }
+.grafico { display: block; width: 100%; max-width: 460px; height: auto; margin: 24px auto; }
+.grafico .fatia { stroke: var(--fundo); stroke-width: 1.2; cursor: pointer; }
+.grafico .fatia:hover { opacity: 0.85; }
+.grafico .fatia.escolhida { stroke: var(--texto); stroke-width: 2; }
 
+.forma figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  font-size: 0.85rem;
+  color: var(--apagado);
+}
+
+.dica-fatia {
+  position: absolute;
+  z-index: 2;
+  transform: translate(14px, -50%);
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(22, 16, 12, 0.92);
+  border: 1px solid var(--linha);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* pizzaiolo */
 .pizzaiolo {
-  margin: 0 0 16px;
-  padding: 12px 16px;
-  border-left: 4px solid var(--destaque);
+  position: relative;
+  margin: 24px 0 20px;
+  padding: 18px 20px 18px 22px;
+  border-radius: 14px;
   background: var(--cartao);
+  border: 1px solid var(--linha);
+}
+.pizzaiolo::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 16px; bottom: 16px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--tomate);
+}
+.pizzaiolo figcaption {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tomate);
+  font-weight: 600;
+}
+.pizzaiolo blockquote {
+  margin: 6px 0 0;
+  font-family: var(--titulo);
+  font-size: 1.2rem;
+  line-height: 1.4;
 }
 
+/* legenda */
 .fatias { list-style: none; margin: 0; padding: 0; }
 .fatias button {
   display: grid;
-  grid-template-columns: 14px 1fr auto;
-  grid-template-areas: "cor nome valor" "cor ingrediente valor";
-  column-gap: 10px;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  grid-template-areas: "cor nome valor" "cor ingrediente valor" "barra barra barra";
+  column-gap: 12px;
   width: 100%;
-  padding: 8px;
+  padding: 10px 10px 8px;
   border: 0;
-  border-bottom: 1px solid var(--linha);
+  border-radius: 10px;
   background: none;
   color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
+  transition: background 0.15s;
 }
-.fatias button:hover, .fatias button.escolhida { background: var(--cartao); }
-.amostra { grid-area: cor; align-self: center; width: 14px; height: 14px; border-radius: 3px; background: var(--cor); }
-.fatias .nome { grid-area: nome; }
-.fatias .ingrediente { grid-area: ingrediente; color: var(--suave); font-size: 0.85em; }
-.fatias .valor { grid-area: valor; align-self: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.fatias button:hover { background: rgba(255, 240, 220, 0.04); }
+.fatias button.escolhida { background: var(--cartao); box-shadow: inset 0 0 0 1px var(--linha); }
+.amostra {
+  grid-area: cor;
+  align-self: center;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--cor);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08), inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+}
+.fatias .nome { grid-area: nome; font-weight: 500; line-height: 1.3; }
+.fatias .ingrediente { grid-area: ingrediente; font-size: 0.82rem; color: var(--suave); }
+.fatias .valor {
+  grid-area: valor;
+  align-self: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.fatias .barra { grid-area: barra; height: 3px; margin-top: 8px; border-radius: 3px; background: var(--linha); }
+.fatias .barra span { display: block; height: 100%; border-radius: 3px; background: var(--cor); opacity: 0.85; }
 
-.detalhe { padding: 16px; background: var(--cartao); border: 1px solid var(--linha); border-radius: 8px; }
-.detalhe h3 { margin-top: 0; }
-.detalhe dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: 0 0 8px; }
-.detalhe dt { color: var(--suave); }
-.detalhe dd { margin: 0; font-variant-numeric: tabular-nums; }
-.lista-cpis { padding-left: 18px; }
-.lista-cpis li { margin-bottom: 10px; }
-.lista-cpis p { margin: 2px 0; color: var(--suave); font-size: 0.9em; }
+/* detalhe */
+.detalhe {
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: var(--cartao);
+  border: 1px solid var(--linha);
+}
+.detalhe .vazio { margin: 0; color: var(--apagado); }
+.detalhe h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0 0 16px;
+  font-family: var(--titulo);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.detalhe h3 .amostra { align-self: center; }
+.detalhe h3 small { font-family: var(--corpo); font-size: 0.9rem; font-weight: 400; color: var(--suave); }
+.detalhe dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+.detalhe dl > div { padding: 12px 14px; border-radius: 10px; background: var(--fundo-2); }
+.detalhe dt { font-size: 0.78rem; color: var(--suave); }
+.detalhe dd {
+  margin: 2px 0 0;
+  font-family: var(--titulo);
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+}
+.detalhe .subtitulo { margin: 20px 0 10px; color: var(--suave); font-size: 0.85rem; }
 
-.rodape-pizza { margin-top: 24px; color: var(--suave); font-size: 0.9em; }
+.lista-cpis { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.lista-cpis li { padding: 12px 14px; border-radius: 10px; background: var(--fundo-2); }
+.lista-cpis strong { display: block; font-weight: 600; }
+.lista-cpis .datas { font-size: 0.82rem; color: var(--suave); }
+.lista-cpis p { margin: 6px 0; font-size: 0.88rem; color: var(--suave); }
+.lista-cpis a { font-size: 0.85rem; }
+
+.rodape-pizza {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: var(--apagado);
+}
 .rodape-pizza p { margin: 0; }
 
 .aviso { color: var(--suave); }
-.aviso.erro { color: var(--destaque); }
+.aviso.erro { color: var(--tomate); }
 
-.rodape { margin-top: 48px; padding-bottom: 32px; color: var(--suave); font-size: 0.85em; }
+.rodape {
+  margin-top: 64px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  border-top: 1px solid var(--linha);
+  color: var(--apagado);
+  font-size: 0.85rem;
+}
+
+/* ---------- telas estreitas ---------- */
+
+@media (max-width: 860px) {
+  .mesa { grid-template-columns: 1fr; }
+  .pizzaiolo { margin-top: 0; }
+}
+
+@media (max-width: 560px) {
+  .topo, main, .rodape { padding: 0 16px; }
+  .topo { padding-top: 28px; padding-bottom: 20px; }
+  .cardapio { width: 100%; }
+  .cardapio a { flex: 1 1 100%; }
+  .palco { min-height: 280px; }
+  .detalhe { padding: 18px 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

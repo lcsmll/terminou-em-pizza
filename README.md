@@ -43,6 +43,9 @@ coletores/        scripts que buscam e tratam os dados
 dados/gerados/    JSONs que o site lê
 dados/manual/     dados curados à mão, sempre com link da fonte
 site/             página estática
+  app.js          lê os JSONs, monta a página e escolhe entre 3D e SVG
+  pizza3d.js      pizza 3D: massa, molho, queijo e ingredientes gerados por código
+  ingredientes.js receita e cor de cada ingrediente (sem Three.js)
 tests/            testes dos coletores
 ```
 
@@ -50,11 +53,19 @@ tests/            testes dos coletores
 
 - [x] Etapa 0: estrutura, README, CLAUDE.md
 - [x] Etapa 1: coletor do IPCA com testes, validado com dados reais (outubro de 2026: 9 grupos, soma dos pesos 100,00%)
-- [x] Etapa 2: primeira pizza na tela (2D, SVG): as três pizzas, legenda, fonte e data. Visual provisório, design a fazer
-- [ ] Etapa 3: pizza 3D
+- [x] Etapa 2: primeira pizza na tela (2D, SVG): as três pizzas, legenda, fonte e data
+- [x] Etapa 3: pizza 3D realista (Three.js) e visual do site. O SVG continua como reserva sem WebGL
 - [ ] Etapa 4: detalhe da fatia e nota do pizzaiolo (detalhe da fatia pronto; falta a nota)
 - [x] Etapa 5: coletores da Matriz elétrica e das CPIs, com testes e dados reais
 - [ ] Etapa 6: GitHub Actions e GitHub Pages
+
+## A pizza 3D
+
+- Three.js 0.160.0 via CDN (jsDelivr), com versão fixa no import map do `index.html`. Sem build.
+- Nenhuma imagem: as texturas de massa, molho, queijo, madeira e embutidos são desenhadas em canvas, e a borda e o queijo recebem ruído determinístico para parecerem feitos à mão.
+- O ângulo de cada fatia é proporcional ao valor. O ingrediente identifica a fatia, e a mesma cor aparece na legenda.
+- Para girar, arraste. Ao passar o mouse, aparece o nome e o valor da fatia. Clicar tira a fatia da pizza e abre o detalhe. A roda do mouse continua rolando a página.
+- Sem WebGL, ou se o CDN falhar, o site mostra a pizza em SVG com a mesma legenda e o mesmo detalhe.
 
 ## Fontes
 
