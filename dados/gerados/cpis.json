@@ -398,9 +398,7 @@
     }
   ],
   "pizzaiolo": {
-    "frase": "Desde 2015, a Câmara criou 25 CPIs. 12 terminaram com relatório final aprovado.",
-    "nota": 4.8,
-    "regra": "A nota é a parte das CPIs encerradas que terminaram com relatório final aprovado, numa escala de 0 a 10: 10 se todas aprovaram, 0 se nenhuma aprovou. As CPIs em andamento ficam de fora, e as que não têm aprovação registrada na API contam como não aprovadas. Desde 2015, foram 12 de 25."
+    "frase": "Desde 2015, a Câmara criou 25 CPIs, contando as 4 criadas e não instaladas. 12 terminaram com relatório final aprovado."
   },
   "historico": [
     {

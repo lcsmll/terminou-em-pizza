@@ -103,9 +103,7 @@
     }
   ],
   "pizzaiolo": {
-    "frase": "Em outubro de 2026, a fonte hidráulica gerou 54,4% da eletricidade do país. Água, sol e vento somaram 88,1%.",
-    "nota": 8.8,
-    "regra": "A nota é a parte da eletricidade que veio de água, sol e vento, numa escala de 0 a 10: 10 se toda a geração fosse dessas fontes, 0 se nenhuma fosse. Nuclear e biomassa não entram na conta. Em outubro de 2026, foram 88,1%."
+    "frase": "Em outubro de 2026, a fonte hidráulica gerou 54,4% da eletricidade do país. Água, sol e vento somaram 88,1%."
   },
   "historico": [
     {

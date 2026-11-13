@@ -5,7 +5,7 @@ Leia este arquivo e o README antes de qualquer tarefa. No fim de cada sessão, a
 ## O projeto
 
 Site estático (GitHub Pages) que mostra dados públicos reais do Brasil em formato de pizza.
-Cada pizza é um tema, cada fatia uma categoria, cada ingrediente identifica um grupo e o pizzaiolo dá uma frase e uma nota.
+Cada pizza é um tema, cada fatia uma categoria, cada ingrediente identifica um grupo e o pizzaiolo resume os dados em uma frase.
 Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 
 ## Regras
@@ -34,11 +34,11 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
   "fatias": [
     {"ordem": 1, "codigo": "...", "nome": "...", "ingrediente": "...", "valor": 0.0, "detalhe": {}}
   ],
-  "pizzaiolo": {"frase": "...", "nota": 4.6, "regra": "...", "regra_fonte": {"nome": "...", "url": "..."}}
+  "pizzaiolo": {"frase": "..."}
 }
 ```
 
-`nota` vai de 0 a 10, com uma casa (`nota_de` em `coletores/comum.py`). `regra` explica a conta em texto, com os números usados. `regra_fonte` é opcional e serve para parâmetros que não vêm da fonte principal (ex.: a meta de inflação). Sem dado para a regra, `nota` e `regra` ficam `null`.
+`pizzaiolo.frase` é um insight tirado dos próprios dados, em tom neutro. O pizzaiolo não dá nota.
 
 `fatias` vem ordenada da mais pesada para a mais leve. `valor` é o que define o tamanho da fatia.
 
@@ -70,6 +70,6 @@ As séries são indexadas pelo nome da fatia: ao escolher uma fatia, o site dest
 1. Coletor do IPCA (feito e validado com dados reais)
 2. Primeira pizza na tela (2D, SVG) (feito; hoje é a reserva sem WebGL)
 3. Pizza 3D (Three.js) (feito: pizza realista, texturas em canvas, visual de pizzaria)
-4. Detalhe da fatia e pizzaiolo (feito: detalhe, explicações e nota de 0 a 10 com regra pública)
+4. Detalhe da fatia e pizzaiolo (feito: detalhe, explicações e frase do pizzaiolo)
 5. Matriz elétrica e CPIs (coletores feitos e validados com dados reais)
 6. Automação (GitHub Actions) e publicação (GitHub Pages) (feito: https://lcsmll.github.io/terminou-em-pizza/, coleta toda segunda)

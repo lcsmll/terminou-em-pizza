@@ -57,11 +57,6 @@ def formatar_numero(valor: float, casas: int = 1) -> str:
     return texto.replace(",", "_").replace(".", ",").replace("_", ".")
 
 
-def nota_de(valor: float) -> float:
-    """Nota do pizzaiolo: de 0 a 10, com uma casa."""
-    return round(min(10.0, max(0.0, valor)), 1)
-
-
 def para_numero(texto: str) -> float | None:
     """Converte o valor da API em float. Símbolos de ausência viram None."""
     if texto is None:

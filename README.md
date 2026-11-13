@@ -4,7 +4,7 @@ Dados públicos do Brasil, servidos em fatias.
 
 **Veja o site: https://lcsmll.github.io/terminou-em-pizza/**
 
-"Terminar em pizza" é quando um assunto sério acaba sem consequência. Este projeto inverte a piada: a pizza vira uma forma séria de mostrar dados reais. Cada pizza é um tema, cada fatia é uma parte do todo, e o pizzaiolo resume o que os números dizem e dá uma nota de 0 a 10.
+"Terminar em pizza" é quando um assunto sério acaba sem consequência. Este projeto inverte a piada: a pizza vira uma forma séria de mostrar dados reais. Cada pizza é um tema, cada fatia é uma parte do todo, e o pizzaiolo resume o que os números dizem.
 
 ## Cardápio da v1
 
@@ -77,18 +77,6 @@ tests/            testes dos coletores
 - O ângulo de cada fatia é proporcional ao valor. O ingrediente identifica a fatia, e a mesma cor aparece na legenda.
 - Para girar, arraste. Ao passar o mouse, aparece o nome e o valor da fatia. Clicar tira a fatia da pizza e abre o detalhe. A roda do mouse continua rolando a página.
 - Sem WebGL, ou se o CDN falhar, o site mostra a pizza em SVG com a mesma legenda e o mesmo detalhe.
-
-## A nota do pizzaiolo
-
-Cada pizza recebe uma nota de 0 a 10, calculada pelo coletor sempre pela mesma regra. O site mostra a regra completa ao lado da nota, com os números do mês.
-
-| Pizza | Regra |
-|---|---|
-| Pizza Inflação | Distância entre o IPCA de 12 meses (SIDRA, variável 2265) e a meta de 3% do Conselho Monetário Nacional: 10 na meta, 5 no limite da tolerância (1,5 ponto), 0 a partir de 3 pontos. A meta fica em `coletores/ipca.py`, com o link do Banco Central; se o CMN mudar a meta, atualize ali. |
-| Quattro Energie | Parte da geração que veio de água, sol e vento, dividida por 10. Nuclear e biomassa (em "Outras térmicas") não entram. |
-| Calabresa da CPI | Parte das CPIs encerradas com relatório final aprovado, vezes 10. As em andamento ficam de fora; as sem aprovação registrada na API contam como não aprovadas. |
-
-Se faltar o dado da regra, a nota fica `null` e o site não mostra a nota.
 
 ## Ao longo dos anos
 
