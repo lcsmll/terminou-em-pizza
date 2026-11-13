@@ -25,6 +25,7 @@
       <p class="selo">Pizzaria de dados públicos</p>
       <h1>Terminou <em>em</em> Pizza</h1>
       <p class="lema">Dados públicos do Brasil, servidos em fatias. Cada pizza é um tema, cada fatia uma parte do todo.</p>
+      <a class="link-sobre" href="#por-que-pizza">O que é "terminar em pizza"?</a>
     </div>
     <nav class="cardapio" aria-label="Cardápio" id="cardapio"></nav>
   </header>
@@ -39,6 +40,7 @@
         <p class="tema"></p>
         <h2 class="sabor"></h2>
         <p class="periodo"></p>
+        <p class="resumo-tema"></p>
       </header>
 
       <div class="mesa">
@@ -64,12 +66,38 @@
         <p class="vazio">Escolha uma fatia para ver o que vai nela.</p>
       </section>
 
+      <section class="entenda" aria-labelledby="titulo-entenda">
+        <h3 id="titulo-entenda">Como ler esta pizza</h3>
+        <div class="blocos"></div>
+      </section>
+
       <footer class="rodape-pizza">
         <p>Fonte: <a class="fonte" target="_blank" rel="noopener"></a></p>
         <p>Atualizado em <time class="atualizado"></time></p>
       </footer>
     </article>
   </template>
+
+  <section class="sobre" id="por-que-pizza" aria-labelledby="titulo-sobre">
+    <div class="sobre-texto">
+      <p class="selo">Por que pizza?</p>
+      <h2 id="titulo-sobre">Terminar em pizza</h2>
+      <p>No Brasil, dizer que algo <strong>terminou em pizza</strong> é dizer que um assunto sério acabou sem consequência: a briga, o escândalo ou a investigação fizeram barulho, e no fim ninguém foi responsabilizado.</p>
+      <p>A origem mais contada vem do futebol. Nos anos 1960, uma crise entre os dirigentes do Palmeiras, em São Paulo, se arrastou numa reunião interminável. Quando o cansaço bateu, o grupo foi para uma pizzaria, e a discussão acabou em paz, com todos à mesa. O jornalista Milton Peruzzi, da Gazeta Esportiva, resumiu o episódio na manchete de que a crise tinha terminado em pizza.</p>
+      <p>Com o tempo, a expressão saiu do esporte e virou crítica política, usada sobretudo para investigações que terminam sem punição, como muitas CPIs.</p>
+    </div>
+    <div class="sobre-projeto">
+      <h3>Este projeto inverte a piada</h3>
+      <p>Aqui a pizza é uma forma séria de mostrar dados reais, sem opinião.</p>
+      <dl class="cardapio-leitura">
+        <div><dt>A pizza</dt><dd>é um tema: inflação, energia, CPIs.</dd></div>
+        <div><dt>A fatia</dt><dd>é uma parte do todo, do tamanho exato do número que representa.</dd></div>
+        <div><dt>O ingrediente</dt><dd>identifica a fatia, e a mesma cor aparece na legenda.</dd></div>
+        <div><dt>O pizzaiolo</dt><dd>resume em uma frase o que os números dizem.</dd></div>
+        <div><dt>A fonte</dt><dd>vem sempre junto, com link e data de atualização. Nenhum dado é inventado, e toda correção manual traz o link de onde veio.</dd></div>
+      </dl>
+    </div>
+  </section>
 
   <footer class="rodape">
     <p>Projeto de portfólio de Lucas Mello. Os números vêm direto das fontes oficiais, sem edição.

@@ -13,6 +13,7 @@ Pizzas da v1: IPCA, Matriz elétrica, CPIs.
 - Coletores: Python 3.11, só `requests` e biblioteca padrão.
 - Site: HTML, CSS e JavaScript puros. Three.js via CDN com versão fixa (0.160.0, no import map). Sem framework e sem build.
 - Ingrediente novo: adicionar a receita em `site/ingredientes.js`, senão a fatia sai só com orégano.
+- Fatia ou pizza nova: escrever a explicação em `site/textos.js` (o que é, o que é cada fatia, cuidado ao ler). Texto neutro, sem números.
 - Textos em português, sem emoji.
 - Todo número exibido precisa ter fonte e data de atualização.
 - Nunca inventar dado. Se um valor não existe, o coletor falha com mensagem clara e o site mantém o último JSON válido.

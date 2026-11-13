@@ -78,6 +78,12 @@ a:hover { color: #fff3cf; }
 .topo h1 em { font-weight: 400; color: var(--queijo); }
 
 .lema { margin: 12px 0 0; max-width: 42ch; color: var(--suave); }
+.link-sobre {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--queijo);
+}
 
 .cardapio { display: flex; flex-wrap: wrap; gap: 10px; }
 .cardapio a {
@@ -130,6 +136,7 @@ main { padding-top: 36px; }
   line-height: 1.05;
 }
 .cabeca .periodo { margin: 0; color: var(--suave); }
+.cabeca .resumo-tema { margin: 10px 0 0; max-width: 60ch; font-size: 1.05rem; }
 
 .mesa {
   display: grid;
@@ -286,9 +293,40 @@ main { padding-top: 36px; }
 .lista-cpis { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .lista-cpis li { padding: 12px 14px; border-radius: 10px; background: var(--fundo-2); }
 .lista-cpis strong { display: block; font-weight: 600; }
-.lista-cpis .datas { font-size: 0.82rem; color: var(--suave); }
+.lista-cpis .datas { display: block; font-size: 0.82rem; color: var(--suave); }
 .lista-cpis p { margin: 6px 0; font-size: 0.88rem; color: var(--suave); }
-.lista-cpis a { font-size: 0.85rem; }
+.lista-cpis a { display: inline-block; margin-top: 4px; font-size: 0.85rem; }
+
+.detalhe .significado { margin: -6px 0 16px; max-width: 70ch; color: var(--suave); }
+
+/* como ler esta pizza */
+.entenda { margin-top: 36px; }
+.entenda h3 {
+  margin: 0 0 14px;
+  font-family: var(--titulo);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.entenda .blocos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.entenda .bloco {
+  padding: 18px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--linha);
+  background: rgba(36, 27, 21, 0.55);
+}
+.entenda h4 {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--manjericao);
+}
+.entenda p { margin: 0 0 10px; color: var(--texto); font-size: 0.95rem; }
+.entenda p:last-child { margin-bottom: 0; }
 
 .rodape-pizza {
   display: flex;
@@ -313,15 +351,53 @@ main { padding-top: 36px; }
   font-size: 0.85rem;
 }
 
+/* ---------- por que pizza ---------- */
+
+.sobre {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 32px 56px;
+  max-width: 1180px;
+  margin: 72px auto 0;
+  padding: 40px 24px 0;
+  border-top: 1px solid var(--linha);
+  scroll-margin-top: 24px;
+}
+.sobre h2 {
+  margin: 0 0 16px;
+  font-family: var(--titulo);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.1;
+}
+.sobre-texto p:not(.selo) { max-width: 62ch; font-size: 1.02rem; }
+.sobre-texto strong { color: var(--queijo); font-weight: 600; }
+.sobre-projeto {
+  align-self: start;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: var(--cartao);
+  border: 1px solid var(--linha);
+}
+.sobre-projeto h3 { margin: 0 0 6px; font-family: var(--titulo); font-size: 1.35rem; font-weight: 600; }
+.sobre-projeto > p { margin: 0 0 14px; color: var(--suave); }
+.cardapio-leitura { margin: 0; display: grid; gap: 10px; }
+.cardapio-leitura div { display: grid; grid-template-columns: 7.5rem 1fr; gap: 12px; }
+.cardapio-leitura dt { font-family: var(--titulo); font-weight: 600; color: var(--queijo); }
+.cardapio-leitura dd { margin: 0; }
+
 /* ---------- telas estreitas ---------- */
 
 @media (max-width: 860px) {
-  .mesa { grid-template-columns: 1fr; }
+  .mesa, .sobre { grid-template-columns: 1fr; }
   .pizzaiolo { margin-top: 0; }
 }
 
 @media (max-width: 560px) {
   .topo, main, .rodape { padding: 0 16px; }
+  .sobre { padding: 32px 16px 0; }
+  .cardapio-leitura div { grid-template-columns: 1fr; gap: 0; }
   .topo { padding-top: 28px; padding-bottom: 20px; }
   .cardapio { width: 100%; }
   .cardapio a { flex: 1 1 100%; }

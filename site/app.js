@@ -2,6 +2,7 @@
 // Sem WebGL (ou se o Three.js não carregar), a pizza aparece em SVG.
 
 import { corDoIngrediente } from "./ingredientes.js";
+import { EXPLICACOES } from "./textos.js";
 
 const PASTA_DADOS = "../dados/gerados/";
 
@@ -206,6 +207,26 @@ function montarPizza(dados, comPalco) {
   artigo.querySelector(".total").textContent = rotuloTotal(dados);
   artigo.querySelector(".pizzaiolo blockquote").textContent = dados.pizzaiolo.frase;
 
+  const explicacao = EXPLICACOES[dados.tema];
+  if (explicacao) {
+    artigo.querySelector(".resumo-tema").textContent = explicacao.resumo;
+    artigo.querySelector(".entenda .blocos").replaceChildren(...explicacao.blocos.map((bloco) => {
+      const div = document.createElement("div");
+      div.className = "bloco";
+      const h4 = document.createElement("h4");
+      h4.textContent = bloco.titulo;
+      div.append(h4, ...bloco.texto.map((texto) => {
+        const p = document.createElement("p");
+        p.textContent = texto;
+        return p;
+      }));
+      return div;
+    }));
+  } else {
+    artigo.querySelector(".resumo-tema").remove();
+    artigo.querySelector(".entenda").remove();
+  }
+
   const fonte = artigo.querySelector(".fonte");
   fonte.href = dados.fonte.url;
   fonte.textContent = dados.fonte.nome;
@@ -229,8 +250,16 @@ function montarPizza(dados, comPalco) {
     titulo.querySelector(".amostra").style.setProperty("--cor", corDaFatia(fatia));
     titulo.querySelector("span:not(.amostra)").textContent = fatia.nome;
     titulo.querySelector("small").textContent = `${fatia.ingrediente} · ${rotuloValor(dados, fatia)}`;
+    const significado = explicacao && explicacao.fatias[fatia.nome];
+    const extra = [];
+    if (significado) {
+      const p = document.createElement("p");
+      p.className = "significado";
+      p.textContent = significado;
+      extra.push(p);
+    }
     const montar = DETALHES[dados.tema];
-    secao.replaceChildren(titulo, ...(montar ? montar(fatia) : []));
+    secao.replaceChildren(titulo, ...extra, ...(montar ? montar(fatia) : []));
 
     artigo.querySelectorAll("[data-codigo]").forEach((el) => {
       const sim = el.dataset.codigo === fatia.codigo;
@@ -296,9 +325,17 @@ function montarCardapio(ativo) {
   }));
 }
 
+let pizzaAtual = null;
+
 async function abrir() {
   const id = location.hash.slice(1);
-  const item = CARDAPIO.find((p) => p.id === id) || CARDAPIO[0];
+  let item = CARDAPIO.find((p) => p.id === id);
+  if (!item) {
+    // âncora da página, como #por-que-pizza: só rola, sem trocar a pizza
+    if (pizzaAtual && document.getElementById(id)) return;
+    item = pizzaAtual || CARDAPIO[0];
+  }
+  pizzaAtual = item;
   montarCardapio(item.id);
 
   const conteudo = document.getElementById("conteudo");
