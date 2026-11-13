@@ -33,10 +33,13 @@
 <body>
   <header class="topo">
     <div class="marca">
-      <p class="selo">Pizzaria de dados públicos</p>
-      <h1>Terminou <em>em</em> Pizza</h1>
-      <p class="lema">Dados públicos do Brasil, servidos em fatias. Cada pizza é um tema, cada fatia uma parte do todo.</p>
-      <a class="link-sobre" href="#por-que-pizza">O que é "terminar em pizza"?</a>
+      <picture class="pose pose-boas-vindas"><source srcset="texturas/pizzaiolo-boas-vindas.webp" type="image/webp"><img src="texturas/pizzaiolo-boas-vindas.png" width="140" height="140" fetchpriority="high" alt="Pizzaiolo de chapéu branco e lenço vermelho, sorrindo de braços abertos, dando boas-vindas"></picture>
+      <div class="marca-texto">
+        <p class="selo">Pizzaria de dados públicos</p>
+        <h1>Terminou <em>em</em> Pizza</h1>
+        <p class="lema">Dados públicos do Brasil, servidos em fatias. Cada pizza é um tema, cada fatia uma parte do todo.</p>
+        <a class="link-sobre" href="#por-que-pizza">O que é "terminar em pizza"?</a>
+      </div>
     </div>
     <nav class="cardapio" aria-label="Cardápio" id="cardapio"></nav>
   </header>
@@ -66,8 +69,11 @@
 
         <aside class="lado">
           <figure class="pizzaiolo">
-            <figcaption>O pizzaiolo diz</figcaption>
-            <blockquote></blockquote>
+            <picture class="pose pose-apresentando"><source srcset="texturas/pizzaiolo-apresentando.webp" type="image/webp"><img src="texturas/pizzaiolo-apresentando.png" width="110" height="110" fetchpriority="high" alt="Pizzaiolo sorridente, com a mão aberta apresentando a frase ao lado"></picture>
+            <div class="fala">
+              <figcaption>O pizzaiolo diz</figcaption>
+              <blockquote></blockquote>
+            </div>
           </figure>
           <ol class="fatias" aria-label="Fatias"></ol>
         </aside>
@@ -89,13 +95,19 @@
       </section>
 
       <section class="entenda" aria-labelledby="titulo-entenda">
-        <h3 id="titulo-entenda">Como ler esta pizza</h3>
-        <div class="blocos"></div>
+        <picture class="pose pose-pensativo"><source srcset="texturas/pizzaiolo-pensativo.webp" type="image/webp"><img src="texturas/pizzaiolo-pensativo.png" width="120" height="120" loading="lazy" decoding="async" alt="Pizzaiolo com a mão no queixo, pensando em como ler a pizza"></picture>
+        <div class="entenda-texto">
+          <h3 id="titulo-entenda">Como ler esta pizza</h3>
+          <div class="blocos"></div>
+        </div>
       </section>
 
       <footer class="rodape-pizza">
-        <p>Fonte: <a class="fonte" target="_blank" rel="noopener"></a></p>
-        <p>Atualizado em <time class="atualizado"></time></p>
+        <picture class="pose pose-aprovando"><source srcset="texturas/pizzaiolo-aprovando.webp" type="image/webp"><img src="texturas/pizzaiolo-aprovando.png" width="80" height="80" loading="lazy" decoding="async" alt="Pizzaiolo fazendo sinal de ok com a mão, ao lado da fonte e da data de atualização"></picture>
+        <div class="rodape-texto">
+          <p>Fonte: <a class="fonte" target="_blank" rel="noopener"></a></p>
+          <p>Atualizado em <time class="atualizado"></time></p>
+        </div>
       </footer>
     </article>
   </template>

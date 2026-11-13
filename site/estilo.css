@@ -47,6 +47,8 @@ a:hover { color: #fff3cf; }
 
 /* ---------- topo ---------- */
 
+.marca { display: flex; align-items: center; gap: 16px; }
+
 .topo {
   display: flex;
   flex-wrap: wrap;
@@ -186,6 +188,9 @@ main { padding-top: 18px; }
 /* pizzaiolo */
 .pizzaiolo {
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   margin: 24px 0 20px;
   padding: 18px 20px 18px 22px;
   border-radius: 14px;
@@ -214,6 +219,15 @@ main { padding-top: 18px; }
   line-height: 1.4;
 }
 
+.pizzaiolo .fala { flex: 1; min-width: 0; }
+
+/* poses do pizzaiolo: a mesma pose em todas as pizzas, sem relação com o valor dos dados */
+.pose { flex: none; display: block; }
+.pose img { display: block; width: 100%; height: auto; }
+.pose-boas-vindas { width: 140px; }
+.pose-apresentando { width: 110px; }
+.pose-pensativo { width: 120px; }
+.pose-aprovando { width: 80px; }
 
 /* legenda */
 .fatias { list-style: none; margin: 0; padding: 0; }
@@ -414,7 +428,13 @@ main { padding-top: 18px; }
 .cartao-fatia .texto { font-size: 0.9rem; line-height: 1.45; }
 
 /* como ler esta pizza */
-.entenda { margin-top: 36px; }
+.entenda {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 36px;
+}
+.entenda-texto { flex: 1; min-width: 0; }
 .entenda h3 {
   margin: 0 0 14px;
   font-family: var(--titulo);
@@ -444,12 +464,18 @@ main { padding-top: 18px; }
 
 .rodape-pizza {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 4px 24px;
+  align-items: center;
+  gap: 16px;
   margin-top: 18px;
   font-size: 0.85rem;
   color: var(--apagado);
+}
+.rodape-texto {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
 }
 .rodape-pizza p { margin: 0; }
 
@@ -532,6 +558,13 @@ main { padding-top: 18px; }
   .cardapio a { flex: 1 1 100%; }
   .palco { min-height: 280px; }
   .detalhe { padding: 18px 16px; }
+  /* no celular, cada pose fica menor e acima do seu texto */
+  .marca, .pizzaiolo, .entenda, .rodape-pizza { flex-direction: column; align-items: flex-start; }
+  .rodape-texto { flex-direction: column; }
+  .pose-boas-vindas { width: 96px; }
+  .pose-apresentando { width: 80px; }
+  .pose-pensativo { width: 80px; }
+  .pose-aprovando { width: 60px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
