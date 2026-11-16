@@ -143,7 +143,7 @@
       ],
       "parcial": {
         "rotulo": "2026",
-        "texto": "até 11 de novembro"
+        "texto": "até 14 de novembro"
       },
       "referencia": null,
       "series": {
@@ -174,7 +174,7 @@
           67.73,
           61.63,
           57.66,
-          58.79
+          58.74
         ],
         "Térmicas (todas)": [
           5.79,
@@ -203,7 +203,7 @@
           11.07,
           12.35,
           12.76,
-          11.42
+          11.43
         ],
         "Eólica": [
           0.0,
@@ -261,7 +261,7 @@
           6.59,
           10.55,
           13.11,
-          14.8
+          14.83
         ]
       },
       "serie_da_fatia": {
@@ -297,9 +297,9 @@
         652.8,
         695.0,
         700.4,
-        613.5
+        619.8
       ],
-      "nota": "No histórico do ONS as térmicas aparecem somadas: gás natural, carvão, nuclear, óleo e biomassa. A solar inclui a geração em telhados estimada pelo ONS. Em 2026, dados de 1º de janeiro até 11 de novembro.",
+      "nota": "No histórico do ONS as térmicas aparecem somadas: gás natural, carvão, nuclear, óleo e biomassa. A solar inclui a geração em telhados estimada pelo ONS. Em 2026, dados de 1º de janeiro até 14 de novembro.",
       "fonte": {
         "nome": "ONS, Balanço de energia nos subsistemas",
         "url": "https://dados.ons.org.br/dataset/balanco-energia-subsistema"
@@ -543,13 +543,13 @@
     },
     "2026": {
       "mwh": {
-        "Hidráulica": 360664946.38199925,
-        "Térmicas (todas)": 70045414.25600024,
-        "Eólica": 91973987.04299992,
-        "Solar": 90784337.30299984
+        "Hidráulica": 364090201.09299886,
+        "Térmicas (todas)": 70843880.35700032,
+        "Eólica": 92933939.68299997,
+        "Solar": 91932382.1459999
       },
-      "ultimo_instante": "2026-11-11 23:00:00"
+      "ultimo_instante": "2026-11-14 23:00:00"
     }
   },
-  "atualizado_em": "2026-11-13"
+  "atualizado_em": "2026-11-16"
 }
